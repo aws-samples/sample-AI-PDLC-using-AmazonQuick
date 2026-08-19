@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --clinical-blue: #1E3A5F;
+    --clinical-green: #2E7D32;
+    --clinical-light: #E8F4FD;
+    --clinical-warm: #FFF3E0;
+    --clinical-red: #C62828;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: #f8fafc; color: #1a1a2e; padding: 40px 24px; }
+  
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 28px; color: var(--clinical-blue); margin-bottom: 8px; }
+  .header p { font-size: 14px; color: #64748b; }
+  .header .product-badge { display: inline-block; background: var(--clinical-blue); color: white; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .journey-container { max-width: 1200px; margin: 0 auto; }
+  
+  .legend { display: flex; justify-content: center; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #64748b; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .legend-dot.current { background: var(--clinical-red); }
+  .legend-dot.friction { background: #FF8F00; }
+  .legend-dot.desired { background: var(--clinical-green); }
+
+  .stages { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; margin-bottom: 32px; }
+  .stage { text-align: center; padding: 16px 8px; background: white; border-radius: 8px; border: 1px solid #e2e8f0; }
+  .stage-number { font-size: 11px; color: #94a3b8; font-weight: 600; margin-bottom: 4px; }
+  .stage-name { font-size: 13px; font-weight: 600; color: var(--clinical-blue); }
+  .stage-icon { font-size: 24px; margin-bottom: 8px; }
+
+  .row-section { margin-bottom: 24px; }
+  .row-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 12px; padding-left: 4px; }
+  
+  .row-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; }
+  .cell { padding: 12px; border-radius: 6px; font-size: 12px; line-height: 1.5; min-height: 80px; }
+  
+  .cell.current { background: #FEF2F2; border: 1px solid #FECACA; color: #991B1B; }
+  .cell.friction { background: #FFF7ED; border: 1px solid #FED7AA; color: #9A3412; }
+  .cell.desired { background: #F0FDF4; border: 1px solid #BBF7D0; color: #166534; }
+  .cell.emotion { border: 1px solid #e2e8f0; }
+  
+  .emotion-bar { height: 6px; border-radius: 3px; margin-top: 8px; }
+  .emotion-bar.frustrated { background: linear-gradient(90deg, var(--clinical-red), #FF8F00); }
+  .emotion-bar.informed { background: linear-gradient(90deg, #FF8F00, #FFC107); }
+  .emotion-bar.confident { background: linear-gradient(90deg, #FFC107, #66BB6A); }
+  .emotion-bar.efficient { background: linear-gradient(90deg, #66BB6A, var(--clinical-green)); }
+  .emotion-bar.satisfied { background: var(--clinical-green); }
+  .emotion-bar.relieved { background: linear-gradient(90deg, #66BB6A, var(--clinical-green)); }
+
+  .emotion-label { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+  .emotion-label.neg { color: var(--clinical-red); }
+  .emotion-label.mid { color: #FF8F00; }
+  .emotion-label.pos { color: var(--clinical-green); }
+
+  .arrow-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; margin-bottom: 16px; }
+  .arrow-cell { text-align: center; font-size: 20px; color: var(--clinical-blue); opacity: 0.4; }
+
+  .summary-box { background: white; border: 2px solid var(--clinical-blue); border-radius: 12px; padding: 24px; margin-top: 40px; }
+  .summary-box h3 { color: var(--clinical-blue); font-size: 16px; margin-bottom: 16px; }
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .metric { text-align: center; padding: 16px; background: var(--clinical-light); border-radius: 8px; }
+  .metric-value { font-size: 24px; font-weight: 700; color: var(--clinical-green); }
+  .metric-label { font-size: 11px; color: #64748b; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="journey-container">
+  <div class="header">
+    <div class="product-badge">AnyCompany ClinicalFlow™</div>
+    <h1>Physician User Journey Map</h1>
+    <p>Current State → Friction Points → Desired State with ClinicalFlow™</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot current"></div> Current State (Pain)</div>
+    <div class="legend-item"><div class="legend-dot friction"></div> Friction Point</div>
+    <div class="legend-item"><div class="legend-dot desired"></div> Desired State (ClinicalFlow™)</div>
+  </div>
+
+  <!-- Stage Headers -->
+  <div class="stages">
+    <div class="stage"><div class="stage-icon">🔐</div><div class="stage-number">Stage 1</div><div class="stage-name">Login & Access</div></div>
+    <div class="stage"><div class="stage-icon">📋</div><div class="stage-number">Stage 2</div><div class="stage-name">Open Patient</div></div>
+    <div class="stage"><div class="stage-icon">🤖</div><div class="stage-number">Stage 3</div><div class="stage-name">AI Recommendations</div></div>
+    <div class="stage"><div class="stage-icon">🔍</div><div class="stage-number">Stage 4</div><div class="stage-name">Review Reasoning</div></div>
+    <div class="stage"><div class="stage-icon">✅</div><div class="stage-number">Stage 5</div><div class="stage-name">Take Action</div></div>
+    <div class="stage"><div class="stage-icon">🏁</div><div class="stage-number">Stage 6</div><div class="stage-name">Complete</div></div>
+  </div>
+
+  <!-- Arrow Row -->
+  <div class="arrow-row">
+    <div class="arrow-cell">→</div>
+    <div class="arrow-cell">→</div>
+    <div class="arrow-cell">→</div>
+    <div class="arrow-cell">→</div>
+    <div class="arrow-cell">→</div>
+    <div class="arrow-cell">✓</div>
+  </div>
+
+  <!-- Current State Row -->
+  <div class="row-section">
+    <div class="row-label">Current State (Without ClinicalFlow)</div>
+    <div class="row-grid">
+      <div class="cell current">Login to AnyCompanyEMR. Separate AnyCompany Insight AI portal login. Two different auth systems.</div>
+      <div class="cell current">Search patient in EMR. Open chart. Manually copy relevant history. Switch to AnyCompany Insight AI system.</div>
+      <div class="cell current">No real-time guidelines. Must manually search clinical databases. AnyCompany Insight AI gives opaque scores with no reasoning.</div>
+      <div class="cell current">No explainability. "Black box" confidence score. Cannot verify AI logic. Must trust blindly or ignore.</div>
+      <div class="cell current">Switch to CPOE system. Re-enter patient details. Manually transcribe orders. Risk of errors.</div>
+      <div class="cell current">14+ min per consultation. Multiple systems open. Cognitive fatigue. Documentation scattered.</div>
+    </div>
+  </div>
+
+  <!-- Friction Points Row -->
+  <div class="row-section">
+    <div class="row-label">Friction Points</div>
+    <div class="row-grid">
+      <div class="cell friction">Multiple credentials. Password fatigue. Session timeouts across systems.</div>
+      <div class="cell friction">Context switching. Data re-entry. Incomplete patient picture across systems.</div>
+      <div class="cell friction">Outdated guidelines. No confidence scoring. AI suggestions arrive too late to influence decisions.</div>
+      <div class="cell friction">Low AI trust. Physicians bypass AI entirely. No audit trail for clinical reasoning.</div>
+      <div class="cell friction">Transcription errors. Wrong dosages. Delayed orders. Manual reconciliation needed.</div>
+      <div class="cell friction">Burnout. Rushed decisions. Missed diagnoses (est. 15-20% preventable). Physician churn risk.</div>
+    </div>
+  </div>
+
+  <!-- Desired State Row -->
+  <div class="row-section">
+    <div class="row-label">Desired State (With ClinicalFlow™)</div>
+    <div class="row-grid">
+      <div class="cell desired">Single SSO login. One workspace. Immediate access to all tools. 3 seconds to productive state.</div>
+      <div class="cell desired">Patient context auto-loads. Full history, labs, meds visible in left panel. Zero manual lookup.</div>
+      <div class="cell desired">Real-time AI guidelines appear as patient loads. Confidence scores (HIGH/MED/LOW). Evidence-cited recommendations.</div>
+      <div class="cell desired">Chain-of-thought reasoning visible. "Why this recommendation" expandable. Guideline citations linked. Full transparency.</div>
+      <div class="cell desired">One-click "Accept & Order." Auto-populated dosage/route. Safety checks inline. Override with reason capture.</div>
+      <div class="cell desired">8 min avg consultation (40% faster). Single system. Confident decisions. Complete audit trail. Reduced burnout.</div>
+    </div>
+  </div>
+
+  <!-- Emotional Arc -->
+  <div class="row-section">
+    <div class="row-label">Emotional Arc (Desired State)</div>
+    <div class="row-grid">
+      <div class="cell emotion">
+        <div class="emotion-label pos">Relieved</div>
+        <div style="font-size:11px; color:#64748b;">Finally, one system</div>
+        <div class="emotion-bar relieved"></div>
+      </div>
+      <div class="cell emotion">
+        <div class="emotion-label pos">Informed</div>
+        <div style="font-size:11px; color:#64748b;">Full picture instantly</div>
+        <div class="emotion-bar informed"></div>
+      </div>
+      <div class="cell emotion">
+        <div class="emotion-label pos">Confident</div>
+        <div style="font-size:11px; color:#64748b;">AI augments judgment</div>
+        <div class="emotion-bar confident"></div>
+      </div>
+      <div class="cell emotion">
+        <div class="emotion-label pos">Trusting</div>
+        <div style="font-size:11px; color:#64748b;">Transparent reasoning</div>
+        <div class="emotion-bar efficient"></div>
+      </div>
+      <div class="cell emotion">
+        <div class="emotion-label pos">Efficient</div>
+        <div style="font-size:11px; color:#64748b;">One-click actions</div>
+        <div class="emotion-bar efficient"></div>
+      </div>
+      <div class="cell emotion">
+        <div class="emotion-label pos">Satisfied</div>
+        <div style="font-size:11px; color:#64748b;">Better outcomes, less time</div>
+        <div class="emotion-bar satisfied"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Metrics -->
+  <div class="summary-box">
+    <h3>Expected Outcomes — ClinicalFlow™ vs. Current State</h3>
+    <div class="metrics-grid">
+      <div class="metric"><div class="metric-value">40%</div><div class="metric-label">Faster Consultations (14min → 8min)</div></div>
+      <div class="metric"><div class="metric-value">90%</div><div class="metric-label">Guideline Adherence Rate</div></div>
+      <div class="metric"><div class="metric-value">30%</div><div class="metric-label">Reduction in Missed Diagnoses</div></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

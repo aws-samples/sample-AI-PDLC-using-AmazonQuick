@@ -1,0 +1,2265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnyCompany ClinicalFlow™ — Clinical Prototype v2</title>
+<style>
+/* ============================================================
+   DESIGN SYSTEM — AnyCompany ClinicalFlow™
+   SKILL.md Compliant | Clinical Blue Palette
+   ============================================================ */
+:root {
+  --clinical-blue: #1976D2;
+  --clinical-blue-light: #E3F2FD;
+  --clinical-blue-dark: #1565C0;
+  --primary-dark: #1E3A5F;
+  --clinical-green: #2E7D32;
+  --clinical-green-light: #E8F5E9;
+  --error-red: #C62828;
+  --error-red-light: #FFEBEE;
+  --warning-orange: #FF8F00;
+  --warning-orange-light: #FFF3E0;
+  --advisory-yellow: #F9A825;
+  --advisory-yellow-light: #FFFDE7;
+  --info-blue: #0288D1;
+  --info-blue-light: #E1F5FE;
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --border: #E2E8F0;
+  --text-primary: #1A202C;
+  --text-secondary: #4A5568;
+  --text-muted: #718096;
+  --radius: 8px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --transition: 150ms ease;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--background);
+  color: var(--text-primary);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   PATIENT BANNER — Guideline #1
+   HIDDEN by default. Shown via JS on patient-context screens.
+   ============================================================ */
+.patient-banner {
+  display: none; /* HIDDEN by default — no patient in context */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--primary-dark);
+  color: #FFFFFF;
+  padding: 10px 24px;
+  align-items: center;
+  gap: 24px;
+  border-bottom: 3px solid var(--clinical-blue);
+}
+
+.patient-banner.visible {
+  display: flex; /* ACTIVATED when patient is in context */
+}
+
+.patient-banner .patient-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.patient-banner .patient-details {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 13px;
+  opacity: 0.92;
+}
+
+.patient-banner .patient-details span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.patient-banner .allergy-badge {
+  background: var(--error-red);
+  color: #FFF;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse-allergy 2s infinite;
+}
+
+@keyframes pulse-allergy {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.patient-banner .code-status {
+  background: rgba(255,255,255,0.15);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   TOP NAV
+   ============================================================ */
+.top-nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.patient-banner.visible ~ .top-nav {
+  position: relative;
+}
+
+.top-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-nav .brand-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--clinical-blue);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top-nav .brand-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: #FFF;
+}
+
+.top-nav .brand-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--primary-dark);
+}
+
+.top-nav .brand-name span {
+  color: var(--clinical-blue);
+}
+
+.top-nav .nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.top-nav .nav-link {
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+  background: none;
+}
+
+.top-nav .nav-link:hover {
+  background: var(--clinical-blue-light);
+  color: var(--clinical-blue);
+}
+
+.top-nav .nav-link.active {
+  background: var(--clinical-blue);
+  color: #FFF;
+}
+
+.top-nav .user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.top-nav .user-avatar {
+  width: 28px;
+  height: 28px;
+  background: var(--clinical-blue-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--clinical-blue);
+}
+
+/* ============================================================
+   SCREENS
+   ============================================================ */
+.screen {
+  display: none;
+  min-height: calc(100vh - 60px);
+}
+
+.screen.active {
+  display: block;
+}
+
+/* ============================================================
+   AI BADGE — Guideline #2
+   ============================================================ */
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: var(--clinical-blue-light);
+  color: var(--clinical-blue);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  vertical-align: middle;
+}
+
+.ai-badge svg {
+  width: 10px;
+  height: 10px;
+  fill: var(--clinical-blue);
+}
+
+/* ============================================================
+   DATA SOURCE TAGS — Guideline #6
+   ============================================================ */
+.source-tag {
+  display: inline-block;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.source-tag.ehr { background: #E8EAF6; color: #3949AB; }
+.source-tag.lab { background: #E0F2F1; color: #00695C; }
+.source-tag.ai-derived { background: var(--clinical-blue-light); color: var(--clinical-blue); }
+
+/* ============================================================
+   SEVERITY INDICATORS — Guideline #9
+   ============================================================ */
+.severity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.severity-dot.critical { background: var(--error-red); }
+.severity-dot.warning { background: var(--warning-orange); }
+.severity-dot.advisory { background: var(--advisory-yellow); }
+.severity-dot.info { background: var(--info-blue); }
+.severity-dot.adherent { background: var(--clinical-green); }
+
+.severity-bar {
+  width: 4px;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.severity-bar.critical { background: var(--error-red); }
+.severity-bar.warning { background: var(--warning-orange); }
+.severity-bar.advisory { background: var(--advisory-yellow); }
+
+/* ============================================================
+   SCREEN 1: DASHBOARD — No Patient Banner
+   ============================================================ */
+.dashboard-content {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.dashboard-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.dashboard-header .date-info {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: box-shadow var(--transition);
+}
+
+.kpi-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.kpi-card .kpi-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.kpi-card .kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.kpi-card .kpi-sublabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.kpi-card .kpi-value.blue { color: var(--clinical-blue); }
+.kpi-card .kpi-value.green { color: var(--clinical-green); }
+.kpi-card .kpi-value.orange { color: var(--warning-orange); }
+
+.consultations-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.consultations-section .section-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.consultations-section .section-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+.consultations-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.consultations-table th {
+  padding: 10px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  background: #F7FAFC;
+  border-bottom: 1px solid var(--border);
+}
+
+.consultations-table td {
+  padding: 12px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.consultations-table tr {
+  cursor: pointer;
+  transition: background var(--transition);
+}
+
+.consultations-table tbody tr:hover {
+  background: var(--clinical-blue-light);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.status-indicator .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-indicator .dot.active { background: var(--clinical-green); }
+.status-indicator .dot.pending { background: var(--warning-orange); }
+.status-indicator .dot.scheduled { background: var(--clinical-blue); }
+.status-indicator .dot.completed { background: var(--text-muted); }
+
+/* ============================================================
+   SCREEN 2: CONSULTATION WORKSPACE
+   ============================================================ */
+.consultation-content {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 0;
+  min-height: calc(100vh - 110px);
+}
+
+.panel {
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.panel:last-child {
+  border-right: none;
+}
+
+.panel-header {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Left Panel - Patient Context */
+.patient-context-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.patient-context-card .card-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.patient-context-card .card-content {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.patient-context-card .card-content .item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.patient-context-card .card-content .item .label {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.patient-context-card .card-content .item .value {
+  font-weight: 500;
+  font-size: 12px;
+}
+
+/* Sparklines — Guideline #5 */
+.sparkline-container {
+  margin-top: 8px;
+}
+
+.sparkline-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.sparkline-row:last-child { border-bottom: none; }
+
+.sparkline-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  width: 50px;
+}
+
+.sparkline-svg {
+  flex: 1;
+  height: 20px;
+  margin: 0 8px;
+}
+
+.sparkline-value {
+  font-size: 11px;
+  font-weight: 600;
+  width: 45px;
+  text-align: right;
+}
+
+/* Center Panel - AI Recommendations (CDS) */
+.cds-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+  cursor: pointer;
+}
+
+.cds-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.cds-card .cds-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cds-card .cds-severity {
+  width: 3px;
+  min-height: 40px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.cds-card .cds-severity.critical { background: var(--error-red); }
+.cds-card .cds-severity.warning { background: var(--warning-orange); }
+.cds-card .cds-severity.advisory { background: var(--advisory-yellow); }
+.cds-card .cds-severity.info { background: var(--info-blue); }
+
+.cds-card .cds-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.cds-card .cds-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Data Before Recommendation — Guideline #12 */
+.data-section {
+  background: #F7FAFC;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #EDF2F7;
+}
+
+.data-section .data-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.data-section .data-item {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 2px 0;
+}
+
+.recommendation-section {
+  background: var(--clinical-blue-light);
+  border: 1px solid #BBDEFB;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.recommendation-section .rec-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--clinical-blue);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recommendation-section .rec-text {
+  font-size: 12px;
+  color: var(--primary-dark);
+  font-weight: 500;
+}
+
+.cds-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.cds-actions button {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.cds-actions button.primary {
+  background: var(--clinical-blue);
+  color: #FFF;
+  border-color: var(--clinical-blue);
+}
+
+.cds-actions button.primary:hover {
+  background: var(--clinical-blue-dark);
+}
+
+.cds-actions button:hover {
+  border-color: var(--clinical-blue);
+  color: var(--clinical-blue);
+}
+
+/* Right Panel - Orders */
+.order-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.order-card .order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.order-card .order-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.order-field {
+  margin-bottom: 8px;
+}
+
+.order-field label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.order-field .field-value {
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #FAFBFC;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.order-field .field-value.ai-prefilled {
+  background: var(--clinical-blue-light);
+  border-color: #BBDEFB;
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.order-actions button {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+}
+
+.btn-confirm {
+  background: var(--clinical-green);
+  color: #FFF;
+}
+
+.btn-confirm:hover {
+  background: #1B5E20;
+}
+
+.btn-override {
+  background: var(--surface);
+  border: 1px solid var(--border) !important;
+  color: var(--text-secondary);
+}
+
+.btn-override:hover {
+  border-color: var(--warning-orange) !important;
+  color: var(--warning-orange);
+}
+
+/* ============================================================
+   SCREEN 3: AI RECOMMENDATION DETAIL
+   ============================================================ */
+.detail-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.back-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--clinical-blue);
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+}
+
+.back-nav:hover {
+  background: var(--clinical-blue-light);
+}
+
+.back-nav svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--clinical-blue);
+}
+
+.detail-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.detail-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Reasoning Chain */
+.reasoning-chain {
+  position: relative;
+  padding-left: 24px;
+}
+
+.reasoning-chain::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--border);
+}
+
+.reasoning-step {
+  position: relative;
+  margin-bottom: 14px;
+  padding-left: 16px;
+}
+
+.reasoning-step::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--clinical-blue);
+  border: 2px solid var(--clinical-blue-light);
+}
+
+.reasoning-step .step-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 2px;
+}
+
+.reasoning-step .step-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* GRADE Badge — Guideline #13 */
+.grade-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.grade-badge.high {
+  background: var(--clinical-green-light);
+  color: var(--clinical-green);
+}
+
+.grade-badge.moderate {
+  background: var(--clinical-blue-light);
+  color: var(--clinical-blue);
+}
+
+.grade-badge.low {
+  background: var(--warning-orange-light);
+  color: var(--warning-orange);
+}
+
+/* Structured Citation — Guideline #14 */
+.citation-card {
+  background: #F7FAFC;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.citation-card .citation-source {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 4px;
+}
+
+.citation-card .citation-section {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.citation-card .citation-excerpt {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-style: italic;
+  border-left: 3px solid var(--clinical-blue);
+  padding-left: 10px;
+  margin: 6px 0;
+}
+
+.citation-card .citation-trigger {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* Confidence — Guideline #15 */
+.confidence-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #F7FAFC;
+  border-radius: 6px;
+  margin-top: 12px;
+}
+
+.confidence-bar {
+  flex: 1;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.confidence-bar .fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--clinical-blue);
+}
+
+.confidence-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-dark);
+  min-width: 40px;
+}
+
+.confidence-method {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Detail Actions */
+.detail-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.detail-actions button {
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+}
+
+.detail-actions .btn-accept {
+  background: var(--clinical-green);
+  color: #FFF;
+  border-color: var(--clinical-green);
+}
+
+.detail-actions .btn-accept:hover {
+  background: #1B5E20;
+}
+
+.detail-actions .btn-modify {
+  background: var(--surface);
+  color: var(--clinical-blue);
+  border-color: var(--clinical-blue);
+}
+
+.detail-actions .btn-modify:hover {
+  background: var(--clinical-blue-light);
+}
+
+.detail-actions .btn-detail-override {
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.detail-actions .btn-detail-override:hover {
+  border-color: var(--warning-orange);
+  color: var(--warning-orange);
+}
+
+/* ============================================================
+   SCREEN 4: ORDER CONFIRMATION
+   ============================================================ */
+.confirmation-content {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.order-summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.order-summary-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 14px;
+}
+
+.order-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 13px;
+}
+
+.order-detail-row:last-child { border-bottom: none; }
+
+.order-detail-row .row-label {
+  color: var(--text-muted);
+}
+
+.order-detail-row .row-value {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* Safety Checks — Guideline #17 */
+.safety-checks-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.safety-checks-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 14px;
+}
+
+.safety-check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.safety-check-item:last-child { border-bottom: none; }
+
+.safety-check-item .check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.safety-check-item .check-icon.checking {
+  border: 2px solid var(--border);
+  animation: spin 1s linear infinite;
+}
+
+.safety-check-item .check-icon.passed {
+  background: var(--clinical-green);
+}
+
+.safety-check-item .check-icon.passed svg {
+  width: 12px;
+  height: 12px;
+  fill: #FFF;
+}
+
+.safety-check-item .check-icon.failed {
+  background: var(--error-red);
+}
+
+.safety-check-item .check-label {
+  font-size: 13px;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.safety-check-item .check-detail {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Warning Banner — Guideline #19 */
+.warning-banner {
+  background: var(--warning-orange-light);
+  border: 1px solid #FFE0B2;
+  border-left: 4px solid var(--warning-orange);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.warning-banner .warning-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.warning-banner .warning-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--warning-orange);
+}
+
+.warning-banner .warning-text {
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.warning-banner .warning-text strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* Confirm Button */
+.confirm-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-confirm-order {
+  padding: 12px 32px;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-confirm-order.disabled {
+  background: #CBD5E0;
+  color: #A0AEC0;
+  cursor: not-allowed;
+}
+
+.btn-confirm-order.enabled {
+  background: var(--clinical-green);
+  color: #FFF;
+}
+
+.btn-confirm-order.enabled:hover {
+  background: #1B5E20;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Success State — Guideline #20 */
+.success-state {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.success-state.visible {
+  display: block;
+}
+
+.success-checkmark {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--clinical-green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  animation: scale-in 0.3s ease;
+}
+
+@keyframes scale-in {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.success-checkmark svg {
+  width: 36px;
+  height: 36px;
+  fill: var(--clinical-green);
+}
+
+.success-state h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 8px;
+}
+
+.success-state .order-id {
+  font-size: 14px;
+  color: var(--clinical-blue);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.success-state .success-summary {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.success-state .added-to {
+  font-size: 13px;
+  color: var(--clinical-green);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.success-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.success-nav button {
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.success-nav button.primary {
+  background: var(--clinical-blue);
+  color: #FFF;
+  border-color: var(--clinical-blue);
+}
+
+.success-nav button:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============================================================
+   OVERRIDE MODAL — Guideline #18
+   NOT a blocking modal for routine CDS (Guideline #8).
+   This is for explicit user-initiated override actions.
+   ============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 24px;
+  width: 440px;
+  max-width: 90vw;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin-bottom: 4px;
+}
+
+.modal-content .modal-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.modal-content label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.modal-content select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--surface);
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.modal-content select:focus {
+  outline: none;
+  border-color: var(--clinical-blue);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: 1px solid var(--border);
+}
+
+.modal-actions .btn-cancel {
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.modal-actions .btn-submit-override {
+  background: var(--warning-orange);
+  color: #FFF;
+  border-color: var(--warning-orange);
+}
+
+.modal-actions .btn-submit-override:hover {
+  background: #E65100;
+}
+
+/* ============================================================
+   AI FACTS LABEL — Guideline #7
+   ============================================================ */
+.ai-facts-tooltip {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  width: 260px;
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+  font-size: 11px;
+}
+
+.ai-facts-tooltip.visible {
+  display: block;
+}
+
+.ai-facts-tooltip .fact-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.ai-facts-tooltip .fact-row:last-child { border-bottom: none; }
+
+.ai-facts-tooltip .fact-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.ai-facts-tooltip .fact-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ============================================================
+   AUDIT TRAIL INDICATOR — Guideline #4
+   ============================================================ */
+.audit-indicator {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 500;
+}
+
+.audit-indicator .audit-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--clinical-green);
+  border-radius: 50%;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  background: var(--primary-dark);
+  color: #FFF;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lg);
+  z-index: 3000;
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+}
+
+.toast.visible {
+  transform: translateX(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     PATIENT BANNER — Hidden by default (Guideline #1 + Logic Fix)
+     Shown ONLY on patient-context screens via JavaScript
+     ================================================================ -->
+<div class="patient-banner" id="patientBanner">
+  <div class="patient-name">Robert Chen</div>
+  <div class="patient-details">
+    <span>MRN: 4428-1190</span>
+    <span>67M</span>
+    <span>DOB: 1959-03-14</span>
+    <span class="allergy-badge">ALLERGY: Penicillin</span>
+    <span class="code-status">Full Code</span>
+  </div>
+</div>
+
+<!-- ================================================================
+     TOP NAVIGATION
+     ================================================================ -->
+<nav class="top-nav" id="topNav">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg>
+    </div>
+    <div class="brand-name">AnyCompany <span>ClinicalFlow</span></div>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showScreen('dashboard')">Dashboard</button>
+    <button class="nav-link" onclick="showScreen('consultation')">Consultation</button>
+    <button class="nav-link" onclick="showScreen('detail')">AI Detail</button>
+    <button class="nav-link" onclick="showScreen('confirmation')">Orders</button>
+  </div>
+  <div class="user-info">
+    <span>Dr. Sarah Mitchell</span>
+    <div class="user-avatar">SM</div>
+  </div>
+</nav>
+
+<!-- ================================================================
+     SCREEN 1: DASHBOARD — NO Patient Banner
+     ================================================================ -->
+<div class="screen active" id="screen-dashboard">
+  <div class="dashboard-content">
+    <div class="dashboard-header">
+      <h1>Today's Consultations</h1>
+      <div class="date-info">Tuesday, August 4, 2026 | Cardiology Clinic A</div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Consultations Today</div>
+        <div class="kpi-value blue">12</div>
+        <div class="kpi-sublabel">4 completed, 8 remaining</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Pending Orders</div>
+        <div class="kpi-value orange">3</div>
+        <div class="kpi-sublabel">Awaiting confirmation</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">AI Acceptance Rate</div>
+        <div class="kpi-value green">87%</div>
+        <div class="kpi-sublabel">Last 30 days</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Avg. Consultation Time</div>
+        <div class="kpi-value">8.2<span style="font-size:14px;color:var(--text-muted)">m</span></div>
+        <div class="kpi-sublabel">Target: 10m</div>
+      </div>
+    </div>
+
+    <!-- Consultations Table -->
+    <div class="consultations-section">
+      <div class="section-header">
+        <h2>Patient Queue</h2>
+        <span class="ai-badge"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg> AI-Prioritized</span>
+      </div>
+      <table class="consultations-table">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Patient</th>
+            <th>Age/Sex</th>
+            <th>Chief Concern</th>
+            <th>AI Recommendations</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr onclick="navigateToConsultation()">
+            <td><div class="status-indicator"><span class="dot active"></span>Active</div></td>
+            <td><strong>Robert Chen</strong></td>
+            <td>67M</td>
+            <td>AF + HTN Stage 2 + T2DM</td>
+            <td><span class="severity-dot critical"></span> 2 critical</td>
+            <td>09:30</td>
+          </tr>
+          <tr onclick="navigateToConsultation()">
+            <td><div class="status-indicator"><span class="dot pending"></span>Pending</div></td>
+            <td><strong>Maria Santos</strong></td>
+            <td>54F</td>
+            <td>Heart failure follow-up</td>
+            <td><span class="severity-dot warning"></span> 1 warning</td>
+            <td>10:00</td>
+          </tr>
+          <tr onclick="navigateToConsultation()">
+            <td><div class="status-indicator"><span class="dot scheduled"></span>Scheduled</div></td>
+            <td><strong>James Wilson</strong></td>
+            <td>72M</td>
+            <td>Post-CABG review</td>
+            <td><span class="severity-dot advisory"></span> 1 advisory</td>
+            <td>10:30</td>
+          </tr>
+          <tr onclick="navigateToConsultation()">
+            <td><div class="status-indicator"><span class="dot scheduled"></span>Scheduled</div></td>
+            <td><strong>Priya Sharma</strong></td>
+            <td>45F</td>
+            <td>New onset palpitations</td>
+            <td><span class="severity-dot info"></span> Informational</td>
+            <td>11:00</td>
+          </tr>
+          <tr onclick="navigateToConsultation()">
+            <td><div class="status-indicator"><span class="dot completed"></span>Completed</div></td>
+            <td><strong>Thomas Baker</strong></td>
+            <td>61M</td>
+            <td>Statin titration</td>
+            <td><span class="severity-dot adherent"></span> Adherent</td>
+            <td>09:00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SCREEN 2: CONSULTATION WORKSPACE — Patient Banner VISIBLE
+     ================================================================ -->
+<div class="screen" id="screen-consultation">
+  <div class="consultation-content">
+    <!-- LEFT PANEL: Patient Context -->
+    <div class="panel">
+      <div class="panel-header">Patient Context</div>
+      
+      <!-- Demographics -->
+      <div class="patient-context-card">
+        <div class="card-title">Demographics <span class="source-tag ehr">EHR</span></div>
+        <div class="card-content">
+          <div class="item"><span class="label">Age/Sex</span><span class="value">67M</span></div>
+          <div class="item"><span class="label">Weight</span><span class="value">82 kg</span></div>
+          <div class="item"><span class="label">Height</span><span class="value">175 cm</span></div>
+        </div>
+      </div>
+
+      <!-- Active Conditions -->
+      <div class="patient-context-card">
+        <div class="card-title">Active Conditions <span class="source-tag ehr">EHR</span></div>
+        <div class="card-content">
+          <div class="item"><span class="value">Atrial Fibrillation (I48.0)</span></div>
+          <div class="item"><span class="value">HTN Stage 2 (I11.9)</span></div>
+          <div class="item"><span class="value">Type 2 DM (E11.9)</span></div>
+        </div>
+      </div>
+
+      <!-- Current Medications -->
+      <div class="patient-context-card">
+        <div class="card-title">Medications <span class="source-tag ehr">EHR</span></div>
+        <div class="card-content">
+          <div class="item"><span class="value">Metoprolol 50mg BID</span></div>
+          <div class="item"><span class="value">Lisinopril 20mg daily</span></div>
+          <div class="item"><span class="value">Metformin 1000mg BID</span></div>
+        </div>
+      </div>
+
+      <!-- Lab Trends with Sparklines — Guideline #5 -->
+      <div class="patient-context-card">
+        <div class="card-title">Lab Trends <span class="source-tag lab">Lab</span></div>
+        <div class="sparkline-container">
+          <div class="sparkline-row">
+            <span class="sparkline-label">HbA1c</span>
+            <svg class="sparkline-svg" viewBox="0 0 100 20">
+              <polyline points="5,15 20,14 40,12 60,10 80,9 95,8" fill="none" stroke="#FF8F00" stroke-width="1.5"/>
+            </svg>
+            <span class="sparkline-value" style="color:var(--warning-orange)">7.2%</span>
+          </div>
+          <div class="sparkline-row">
+            <span class="sparkline-label">eGFR</span>
+            <svg class="sparkline-svg" viewBox="0 0 100 20">
+              <polyline points="5,5 20,6 40,8 60,9 80,10 95,10" fill="none" stroke="#1976D2" stroke-width="1.5"/>
+            </svg>
+            <span class="sparkline-value" style="color:var(--clinical-blue)">62</span>
+          </div>
+          <div class="sparkline-row">
+            <span class="sparkline-label">BP</span>
+            <svg class="sparkline-svg" viewBox="0 0 100 20">
+              <polyline points="5,4 20,6 40,8 60,7 80,9 95,10" fill="none" stroke="#C62828" stroke-width="1.5"/>
+            </svg>
+            <span class="sparkline-value" style="color:var(--error-red)">148/92</span>
+          </div>
+          <div class="sparkline-row">
+            <span class="sparkline-label">INR</span>
+            <svg class="sparkline-svg" viewBox="0 0 100 20">
+              <polyline points="5,12 20,11 40,10 60,10 80,10 95,10" fill="none" stroke="#2E7D32" stroke-width="1.5"/>
+            </svg>
+            <span class="sparkline-value" style="color:var(--clinical-green)">1.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER PANEL: AI Recommendations (CDS) — Guideline #8 Non-interruptive -->
+    <div class="panel" style="padding: 16px 20px;">
+      <div class="panel-header" style="display:flex;align-items:center;gap:8px;">
+        AI Clinical Decision Support
+        <span class="ai-badge"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg> AI</span>
+      </div>
+
+      <!-- CDS Card 1: Critical — Anticoagulation -->
+      <div class="cds-card" onclick="showScreen('detail')">
+        <div class="cds-header">
+          <div class="cds-severity critical"></div>
+          <div>
+            <div class="cds-title">Anticoagulation Recommended</div>
+            <div class="cds-subtitle">CHA2DS2-VASc Score: 4 | Stroke risk: 4.0%/year</div>
+          </div>
+        </div>
+        <!-- Guideline #12: Data Before AI Recommendation -->
+        <div class="data-section">
+          <div class="data-title">Clinical Data <span class="source-tag ehr">EHR</span> <span class="source-tag ai-derived">AI-Derived</span></div>
+          <div class="data-item">AF confirmed (ECG 2026-07-28)</div>
+          <div class="data-item">Age 67 (+1), HTN (+1), DM (+1), Male — CHA2DS2-VASc = 4</div>
+          <div class="data-item">No prior bleeding events | HAS-BLED = 1 (low risk)</div>
+        </div>
+        <div class="recommendation-section">
+          <div class="rec-title">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="#1976D2"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg>
+            AI Recommendation
+          </div>
+          <div class="rec-text">Initiate Warfarin 5mg daily with INR target 2.0-3.0</div>
+        </div>
+        <div class="cds-actions">
+          <button class="primary" onclick="event.stopPropagation(); showScreen('confirmation')">Accept & Order</button>
+          <button onclick="event.stopPropagation(); showScreen('detail')">View Details</button>
+          <button onclick="event.stopPropagation(); showOverrideModal()">Override</button>
+        </div>
+      </div>
+
+      <!-- CDS Card 2: Warning — BP Optimization -->
+      <div class="cds-card">
+        <div class="cds-header">
+          <div class="cds-severity warning"></div>
+          <div>
+            <div class="cds-title">Antihypertensive Optimization</div>
+            <div class="cds-subtitle">BP above target despite current therapy</div>
+          </div>
+        </div>
+        <div class="data-section">
+          <div class="data-title">Clinical Data <span class="source-tag lab">Lab</span></div>
+          <div class="data-item">Current BP: 148/92 mmHg (target &lt;130/80)</div>
+          <div class="data-item">Lisinopril 20mg daily x 6 months</div>
+          <div class="data-item">eGFR 62 — dose adjustment may be needed</div>
+        </div>
+        <div class="recommendation-section">
+          <div class="rec-title">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="#1976D2"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg>
+            AI Recommendation
+          </div>
+          <div class="rec-text">Add Amlodipine 5mg daily or increase Lisinopril to 40mg</div>
+        </div>
+        <div class="cds-actions">
+          <button class="primary">Accept</button>
+          <button>Modify</button>
+          <button onclick="showOverrideModal()">Override</button>
+        </div>
+      </div>
+
+      <!-- CDS Card 3: Advisory — HbA1c -->
+      <div class="cds-card">
+        <div class="cds-header">
+          <div class="cds-severity advisory"></div>
+          <div>
+            <div class="cds-title">Glycemic Monitoring</div>
+            <div class="cds-subtitle">HbA1c trending down — on track</div>
+          </div>
+        </div>
+        <div class="data-section">
+          <div class="data-title">Clinical Data <span class="source-tag lab">Lab</span></div>
+          <div class="data-item">HbA1c: 7.2% (prev 7.8% at 3mo)</div>
+          <div class="data-item">Metformin 1000mg BID, no hypoglycemic events</div>
+        </div>
+        <div class="recommendation-section">
+          <div class="rec-title">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="#1976D2"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg>
+            AI Recommendation
+          </div>
+          <div class="rec-text">Continue current regimen. Recheck HbA1c in 3 months.</div>
+        </div>
+        <div class="cds-actions">
+          <button class="primary">Acknowledge</button>
+          <button>Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: Orders — Guideline #16 Pre-fill -->
+    <div class="panel">
+      <div class="panel-header">Active Orders</div>
+
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-title">Warfarin Order</div>
+          <span class="ai-badge"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg> AI Pre-filled</span>
+        </div>
+        <div class="order-field">
+          <label>Medication</label>
+          <div class="field-value ai-prefilled">
+            Warfarin 5mg tablet
+            <span class="ai-badge" style="margin-left:auto;"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg> AI</span>
+          </div>
+        </div>
+        <div class="order-field">
+          <label>Dose</label>
+          <div class="field-value ai-prefilled">5mg once daily</div>
+        </div>
+        <div class="order-field">
+          <label>Duration</label>
+          <div class="field-value ai-prefilled">Ongoing — INR target 2.0-3.0</div>
+        </div>
+        <div class="order-field">
+          <label>Monitoring</label>
+          <div class="field-value ai-prefilled">INR check in 3 days, then weekly x4</div>
+        </div>
+        <div class="order-actions">
+          <button class="btn-confirm" onclick="showScreen('confirmation')">Review & Confirm</button>
+          <button class="btn-override" onclick="showOverrideModal()">Override</button>
+        </div>
+      </div>
+
+      <!-- AI Facts Label — Guideline #7 -->
+      <div class="patient-context-card" style="position:relative;">
+        <div class="card-title" style="cursor:pointer;" onclick="toggleAIFacts()">
+          AI Model Information
+          <span class="ai-badge"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg> Info</span>
+        </div>
+        <div class="ai-facts-tooltip" id="aiFacts">
+          <div class="fact-row"><span class="fact-label">Model</span><span class="fact-value">ClinicalFlow CDS v3.2</span></div>
+          <div class="fact-row"><span class="fact-label">Data Inputs</span><span class="fact-value">EHR, Labs, Guidelines</span></div>
+          <div class="fact-row"><span class="fact-label">Limitations</span><span class="fact-value">No genomic data</span></div>
+          <div class="fact-row"><span class="fact-label">Last Validated</span><span class="fact-value">2026-07-15</span></div>
+          <div class="fact-row"><span class="fact-label">Accuracy (internal)</span><span class="fact-value">91.3% concordance</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SCREEN 3: AI RECOMMENDATION DETAIL — Patient Banner VISIBLE
+     ================================================================ -->
+<div class="screen" id="screen-detail">
+  <div class="detail-content">
+    <div class="back-nav" onclick="showScreen('consultation')">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      Back to Consultation
+    </div>
+
+    <!-- Recommendation Header -->
+    <div class="detail-card">
+      <h3>
+        <span class="severity-dot critical"></span>
+        Anticoagulation for Stroke Prevention in AF
+        <span class="ai-badge"><svg viewBox="0 0 24 24"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z"/></svg> AI-Generated</span>
+      </h3>
+      <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">
+        Based on CHA2DS2-VASc scoring and current guidelines, oral anticoagulation is indicated to reduce stroke risk from 4.0%/year to approximately 1.4%/year.
+      </p>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="grade-badge high">GRADE: HIGH</span>
+        <span class="source-tag ehr">EHR</span>
+        <span class="source-tag lab">Lab</span>
+        <span class="source-tag ai-derived">AI-Derived</span>
+      </div>
+    </div>
+
+    <!-- Reasoning Chain -->
+    <div class="detail-card">
+      <h3>Reasoning Chain</h3>
+      <div class="reasoning-chain">
+        <div class="reasoning-step">
+          <div class="step-title">Step 1: AF Confirmed</div>
+          <div class="step-desc">ECG dated 2026-07-28 shows persistent atrial fibrillation. Diagnosis ICD-10: I48.0 confirmed in EHR since 2026-05-12.</div>
+        </div>
+        <div class="reasoning-step">
+          <div class="step-title">Step 2: Stroke Risk Assessment</div>
+          <div class="step-desc">CHA2DS2-VASc calculated: Age 65-74 (+1), HTN (+1), DM (+1), Male (0), No prior stroke/TIA — Total: 4. Annual stroke risk: 4.0%.</div>
+        </div>
+        <div class="reasoning-step">
+          <div class="step-title">Step 3: Bleeding Risk Assessment</div>
+          <div class="step-desc">HAS-BLED score: 1 (HTN only). No prior bleeds, no antiplatelet therapy, stable renal function (eGFR 62). Low bleeding risk.</div>
+        </div>
+        <div class="reasoning-step">
+          <div class="step-title">Step 4: Agent Selection</div>
+          <div class="step-desc">Warfarin selected over DOACs due to eGFR 62 (borderline for dose adjustment) and availability of INR monitoring infrastructure. Dose: 5mg daily with INR target 2.0-3.0.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Structured Citations — Guideline #14 -->
+    <div class="detail-card">
+      <h3>Evidence Sources</h3>
+      <div class="citation-card">
+        <div class="citation-source">ESC/EACTS Guidelines — 2024 AF Management</div>
+        <div class="citation-section">Section 10.1: Stroke Prevention, Recommendation Class I, Level A</div>
+        <div class="citation-excerpt">"Oral anticoagulation is recommended in male CHA2DS2-VASc ≥2 and female ≥3 to prevent thromboembolic events."</div>
+        <div class="citation-trigger">Triggered by: CHA2DS2-VASc = 4 | Evidence: <span class="grade-badge high" style="font-size:9px;">HIGH</span></div>
+      </div>
+      <div class="citation-card">
+        <div class="citation-source">AHA/ACC/HRS — 2023 AF Guideline Update</div>
+        <div class="citation-section">Section 7.3.1: Anticoagulant Selection in CKD</div>
+        <div class="citation-excerpt">"In patients with eGFR 30-59, warfarin or dose-adjusted DOACs are both acceptable. Warfarin preferred when INR monitoring is readily available."</div>
+        <div class="citation-trigger">Triggered by: eGFR 62, monitoring available | Evidence: <span class="grade-badge moderate" style="font-size:9px;">MODERATE</span></div>
+      </div>
+    </div>
+
+    <!-- Confidence — Guideline #15 -->
+    <div class="detail-card">
+      <h3>Confidence Assessment</h3>
+      <div class="confidence-section">
+        <div class="confidence-label">82%</div>
+        <div style="flex:1;">
+          <div class="confidence-bar"><div class="fill" style="width:82%"></div></div>
+          <div class="confidence-method">Methodology: Guideline concordance (2 Class I sources) + risk score validation + contraindication screening. Not a diagnostic certainty — represents alignment with evidence base.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="detail-actions">
+      <button class="btn-accept" onclick="showScreen('confirmation')">Accept Recommendation</button>
+      <button class="btn-modify">Modify Parameters</button>
+      <button class="btn-detail-override" onclick="showOverrideModal()">Override with Reason</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SCREEN 4: ORDER CONFIRMATION — Patient Banner VISIBLE
+     ================================================================ -->
+<div class="screen" id="screen-confirmation">
+  <div class="confirmation-content" id="confirmationFlow">
+    <div class="back-nav" onclick="showScreen('consultation')">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      Back to Consultation
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary-card">
+      <h3>Order Summary <span class="ai-badge" style="font-size:10px;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z" fill="#1976D2"/></svg> AI-Initiated</span></h3>
+      <div class="order-detail-row">
+        <span class="row-label">Medication</span>
+        <span class="row-value">Warfarin 5mg tablet</span>
+      </div>
+      <div class="order-detail-row">
+        <span class="row-label">Dose</span>
+        <span class="row-value">5mg once daily (evening)</span>
+      </div>
+      <div class="order-detail-row">
+        <span class="row-label">Route</span>
+        <span class="row-value">Oral</span>
+      </div>
+      <div class="order-detail-row">
+        <span class="row-label">Duration</span>
+        <span class="row-value">Ongoing</span>
+      </div>
+      <div class="order-detail-row">
+        <span class="row-label">INR Target</span>
+        <span class="row-value">2.0 - 3.0</span>
+      </div>
+      <div class="order-detail-row">
+        <span class="row-label">Monitoring</span>
+        <span class="row-value">INR in 3 days, then weekly x 4 weeks</span>
+      </div>
+      <div class="order-detail-row">
+        <span class="row-label">Ordering Physician</span>
+        <span class="row-value">Dr. Sarah Mitchell</span>
+      </div>
+    </div>
+
+    <!-- Safety Checks — Guideline #17 -->
+    <div class="safety-checks-card">
+      <h3>Safety Verification</h3>
+      <div class="safety-check-item" id="check-allergy">
+        <div class="check-icon checking" id="check-allergy-icon">
+          <svg viewBox="0 0 24 24" width="10" height="10" style="display:none;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#FFF"/></svg>
+        </div>
+        <span class="check-label">Allergy Cross-Reference</span>
+        <span class="check-detail" id="check-allergy-detail">Checking...</span>
+      </div>
+      <div class="safety-check-item" id="check-interaction">
+        <div class="check-icon checking" id="check-interaction-icon">
+          <svg viewBox="0 0 24 24" width="10" height="10" style="display:none;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#FFF"/></svg>
+        </div>
+        <span class="check-label">Drug Interaction Screen</span>
+        <span class="check-detail" id="check-interaction-detail">Checking...</span>
+      </div>
+      <div class="safety-check-item" id="check-renal">
+        <div class="check-icon checking" id="check-renal-icon">
+          <svg viewBox="0 0 24 24" width="10" height="10" style="display:none;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#FFF"/></svg>
+        </div>
+        <span class="check-label">Renal Dose Adjustment</span>
+        <span class="check-detail" id="check-renal-detail">Checking...</span>
+      </div>
+      <div class="safety-check-item" id="check-duplicate">
+        <div class="check-icon checking" id="check-duplicate-icon">
+          <svg viewBox="0 0 24 24" width="10" height="10" style="display:none;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#FFF"/></svg>
+        </div>
+        <span class="check-label">Duplicate Order Check</span>
+        <span class="check-detail" id="check-duplicate-detail">Checking...</span>
+      </div>
+    </div>
+
+    <!-- Warning Banner — Guideline #19 Context-Aware -->
+    <div class="warning-banner">
+      <div class="warning-icon">
+        <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+      </div>
+      <div class="warning-text">
+        <strong>Context-Aware Alert</strong>
+        Patient has Penicillin allergy (documented). No cross-reactivity with Warfarin. INR monitoring required due to eGFR 62 (mild CKD) — hepatic metabolism may be altered. Dietary counseling recommended (Vitamin K intake).
+      </div>
+    </div>
+
+    <!-- Confirm Button — Activates after checks pass -->
+    <div class="confirm-section">
+      <button class="btn-confirm-order disabled" id="confirmBtn" onclick="confirmOrder()">
+        Confirm Order
+      </button>
+      <p style="font-size:11px;color:var(--text-muted);margin-top:8px;" id="confirmHint">
+        Waiting for safety checks to complete...
+      </p>
+    </div>
+  </div>
+
+  <!-- Success State — Guideline #20 -->
+  <div class="success-state" id="successState">
+    <div class="success-checkmark">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+    </div>
+    <h2>Order Confirmed</h2>
+    <div class="order-id">ORD-2026-07-001</div>
+    <div class="success-summary">Warfarin 5mg daily — Robert Chen (MRN: 4428-1190)</div>
+    <div class="success-summary">INR monitoring scheduled: 2026-08-07, then weekly</div>
+    <div class="added-to">Added to Active Orders</div>
+    <div class="success-nav">
+      <button class="primary" onclick="showScreen('dashboard')">Return to Dashboard</button>
+      <button onclick="showScreen('consultation')">Next Recommendation</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     OVERRIDE MODAL — Guideline #18: Standardized Dropdown
+     ================================================================ -->
+<div class="modal-overlay" id="overrideModal">
+  <div class="modal-content">
+    <h3>Override AI Recommendation</h3>
+    <div class="modal-subtitle">This action will be logged in the audit trail. Select a standardized reason.</div>
+    <label for="overrideReason">Override Reason (Required)</label>
+    <select id="overrideReason">
+      <option value="">— Select reason —</option>
+      <option value="clinical-judgment">Clinical judgment based on patient factors not in model</option>
+      <option value="patient-preference">Patient preference / shared decision-making</option>
+      <option value="contraindication">Known contraindication not captured in system</option>
+      <option value="prior-adverse">Prior adverse reaction to recommended therapy</option>
+      <option value="alternative-therapy">Alternative therapy already initiated</option>
+      <option value="awaiting-results">Awaiting additional test results before initiating</option>
+      <option value="guideline-exception">Guideline exception — documented clinical rationale</option>
+    </select>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="hideOverrideModal()">Cancel</button>
+      <button class="btn-submit-override" onclick="submitOverride()">Submit Override</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     AUDIT TRAIL INDICATOR — Guideline #4
+     ================================================================ -->
+<div class="audit-indicator">
+  <div class="audit-dot"></div>
+  <span>Audit Trail Active | <span id="auditCount">0</span> actions logged</span>
+</div>
+
+<!-- ================================================================
+     TOAST NOTIFICATION
+     ================================================================ -->
+<div class="toast" id="toast"></div>
+
+<!-- ================================================================
+     JAVASCRIPT — Navigation, Patient Banner Logic, Interactions
+     ================================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // State
+  let auditCount = 0;
+  let currentScreen = 'dashboard';
+  let safetyChecksComplete = false;
+
+  // ============================================================
+  // PATIENT BANNER LOGIC — The Critical Fix
+  // Banner is HIDDEN on Dashboard (multi-patient view)
+  // Banner is VISIBLE on all patient-context screens
+  // ============================================================
+  const patientContextScreens = ['consultation', 'detail', 'confirmation'];
+
+  function updatePatientBanner(screenId) {
+    const banner = document.getElementById('patientBanner');
+    if (patientContextScreens.includes(screenId)) {
+      banner.classList.add('visible');
+    } else {
+      banner.classList.remove('visible');
+    }
+  }
+
+  // ============================================================
+  // SCREEN NAVIGATION
+  // ============================================================
+  window.showScreen = function(screenId) {
+    // Hide all screens
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    // Show target
+    const target = document.getElementById('screen-' + screenId);
+    if (target) target.classList.add('active');
+
+    // Update nav active state
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    const navMap = { dashboard: 0, consultation: 1, detail: 2, confirmation: 3 };
+    const navLinks = document.querySelectorAll('.nav-link');
+    if (navLinks[navMap[screenId]]) navLinks[navMap[screenId]].classList.add('active');
+
+    // Update patient banner visibility
+    updatePatientBanner(screenId);
+    currentScreen = screenId;
+
+    // Trigger safety checks on confirmation screen
+    if (screenId === 'confirmation') {
+      resetConfirmation();
+      runSafetyChecks();
+    }
+
+    // Log navigation in audit
+    logAudit('Navigate to ' + screenId);
+  };
+
+  // Navigate from dashboard row click
+  window.navigateToConsultation = function() {
+    showScreen('consultation');
+  };
+
+  // ============================================================
+  // SAFETY CHECKS ANIMATION — Guideline #17
+  // ============================================================
+  function resetConfirmation() {
+    safetyChecksComplete = false;
+    document.getElementById('confirmationFlow').style.display = 'block';
+    document.getElementById('successState').classList.remove('visible');
+    document.getElementById('successState').style.display = 'none';
+    
+    const checks = ['allergy', 'interaction', 'renal', 'duplicate'];
+    checks.forEach(check => {
+      const icon = document.getElementById('check-' + check + '-icon');
+      icon.className = 'check-icon checking';
+      icon.querySelector('svg').style.display = 'none';
+      document.getElementById('check-' + check + '-detail').textContent = 'Checking...';
+    });
+    
+    const btn = document.getElementById('confirmBtn');
+    btn.className = 'btn-confirm-order disabled';
+    document.getElementById('confirmHint').textContent = 'Waiting for safety checks to complete...';
+  }
+
+  function runSafetyChecks() {
+    const checks = [
+      { id: 'allergy', delay: 800, detail: 'No cross-reactivity with Penicillin allergy' },
+      { id: 'interaction', delay: 1500, detail: 'No significant interactions with current medications' },
+      { id: 'renal', delay: 2200, detail: 'eGFR 62: standard dose appropriate, monitor INR closely' },
+      { id: 'duplicate', delay: 2800, detail: 'No duplicate anticoagulant orders found' }
+    ];
+
+    checks.forEach(check => {
+      setTimeout(() => {
+        const icon = document.getElementById('check-' + check.id + '-icon');
+        icon.className = 'check-icon passed';
+        icon.querySelector('svg').style.display = 'block';
+        document.getElementById('check-' + check.id + '-detail').textContent = check.detail;
+      }, check.delay);
+    });
+
+    // Enable confirm button after all checks pass
+    setTimeout(() => {
+      safetyChecksComplete = true;
+      const btn = document.getElementById('confirmBtn');
+      btn.className = 'btn-confirm-order enabled';
+      document.getElementById('confirmHint').textContent = 'All safety checks passed. Ready to confirm.';
+    }, 3200);
+  }
+
+  // ============================================================
+  // ORDER CONFIRMATION — Guideline #20
+  // ============================================================
+  window.confirmOrder = function() {
+    if (!safetyChecksComplete) return;
+    
+    document.getElementById('confirmationFlow').style.display = 'none';
+    const success = document.getElementById('successState');
+    success.style.display = 'block';
+    setTimeout(() => success.classList.add('visible'), 50);
+    
+    logAudit('Order confirmed: Warfarin 5mg — ORD-2026-07-001');
+    showToast('Order ORD-2026-07-001 confirmed and added to Active Orders');
+  };
+
+  // ============================================================
+  // OVERRIDE MODAL — Guideline #18
+  // ============================================================
+  window.showOverrideModal = function() {
+    document.getElementById('overrideModal').classList.add('visible');
+    document.getElementById('overrideReason').value = '';
+  };
+
+  window.hideOverrideModal = function() {
+    document.getElementById('overrideModal').classList.remove('visible');
+  };
+
+  window.submitOverride = function() {
+    const reason = document.getElementById('overrideReason').value;
+    if (!reason) {
+      showToast('Please select an override reason');
+      return;
+    }
+    hideOverrideModal();
+    logAudit('Override submitted: ' + reason);
+    showToast('Override recorded — reason logged to audit trail');
+  };
+
+  // ============================================================
+  // AI FACTS LABEL TOGGLE — Guideline #7
+  // ============================================================
+  window.toggleAIFacts = function() {
+    const facts = document.getElementById('aiFacts');
+    facts.classList.toggle('visible');
+  };
+
+  // ============================================================
+  // AUDIT TRAIL — Guideline #4
+  // ============================================================
+  function logAudit(action) {
+    auditCount++;
+    document.getElementById('auditCount').textContent = auditCount;
+    console.log('[AUDIT] ' + new Date().toISOString() + ' | Dr. Mitchell | ' + action);
+  }
+
+  // ============================================================
+  // TOAST
+  // ============================================================
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 3500);
+  }
+  window.showToast = showToast;
+
+  // ============================================================
+  // INITIALIZE — Dashboard, no patient banner
+  // ============================================================
+  updatePatientBanner('dashboard');
+
+})();
+</script>
+
+</body>
+</html>

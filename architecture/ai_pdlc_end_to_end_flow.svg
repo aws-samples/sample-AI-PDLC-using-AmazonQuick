@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 560" width="1240" height="560" role="img" aria-labelledby="title desc" font-family="'Amazon Ember','Helvetica Neue',Helvetica,Arial,sans-serif">
+  <title id="title">AI-PDLC end-to-end flow</title>
+  <desc id="desc">Enterprise knowledge feeds AI-PDLC agents on Amazon Quick, which produce a prototype spec. Coding agents build and review from that same spec. Humans approve at every gate.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <rect width="1240" height="560" fill="#ffffff"/>
+
+  <!-- stage captions -->
+  <text x="155"  y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#64748b" letter-spacing="1.5">SIGNALS</text>
+  <text x="465"  y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#4200db" letter-spacing="1.5">THE BRAIN</text>
+  <text x="765"  y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309" letter-spacing="1.5">THE COMMON LANGUAGE</text>
+  <text x="1070" y="46" text-anchor="middle" font-size="13" font-weight="700" fill="#0e7490" letter-spacing="1.5">THE HANDS</text>
+
+  <!-- 1. Enterprise knowledge -->
+  <rect x="30" y="70" width="250" height="300" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <text x="155" y="103" text-anchor="middle" font-size="16" font-weight="700" fill="#1e293b">Enterprise Knowledge</text>
+  <text x="155" y="126" text-anchor="middle" font-size="12" fill="#64748b">The 80% outside the codebase</text>
+  <g font-size="13" fill="#334155">
+    <text x="56" y="158">Slack / Teams</text>
+    <text x="56" y="182">Jira / Confluence</text>
+    <text x="56" y="206">SharePoint / Zoom</text>
+    <text x="56" y="230">Email / Calendar</text>
+    <text x="56" y="254">Documents / Transcripts</text>
+    <text x="56" y="278">MCP Servers</text>
+  </g>
+  <line x1="56" y1="296" x2="254" y2="296" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="155" y="320" text-anchor="middle" font-size="11.5" fill="#64748b">Why you&#8217;re building, what</text>
+  <text x="155" y="338" text-anchor="middle" font-size="11.5" fill="#64748b">customers said, what the</text>
+  <text x="155" y="356" text-anchor="middle" font-size="11.5" fill="#64748b">team decided</text>
+
+  <line x1="288" y1="220" x2="322" y2="220" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 2. AI-PDLC agents on Amazon Quick -->
+  <rect x="330" y="70" width="270" height="300" rx="12" fill="#f5f3ff" stroke="#4200db" stroke-width="2.5"/>
+  <text x="465" y="103" text-anchor="middle" font-size="16" font-weight="700" fill="#35009e">AI-PDLC Agents</text>
+  <text x="465" y="124" text-anchor="middle" font-size="12" fill="#6d28d9">on Amazon Quick</text>
+
+  <rect x="352" y="140" width="226" height="34" rx="7" fill="#4200db"/>
+  <text x="465" y="162" text-anchor="middle" font-size="13" font-weight="700" fill="#ffffff">Orchestrator</text>
+
+  <g font-size="12.5" fill="#3b0764">
+    <rect x="352" y="184" width="226" height="27" rx="6" fill="#ffffff" stroke="#c4b5fd"/>
+    <text x="465" y="202" text-anchor="middle">1 · Discovery</text>
+    <rect x="352" y="216" width="226" height="27" rx="6" fill="#ffffff" stroke="#c4b5fd"/>
+    <text x="465" y="234" text-anchor="middle">2 · Prioritize</text>
+    <rect x="352" y="248" width="226" height="27" rx="6" fill="#ffffff" stroke="#c4b5fd"/>
+    <text x="465" y="266" text-anchor="middle">3 · Working Backwards</text>
+    <rect x="352" y="280" width="226" height="27" rx="6" fill="#ffffff" stroke="#c4b5fd"/>
+    <text x="465" y="298" text-anchor="middle">4 · Spec Generator</text>
+    <rect x="352" y="312" width="226" height="27" rx="6" fill="#ffffff" stroke="#c4b5fd"/>
+    <text x="465" y="330" text-anchor="middle">5 · Designer</text>
+  </g>
+  <text x="465" y="358" text-anchor="middle" font-size="11.5" fill="#6d28d9">PMs · BAs · PgMs · Designers</text>
+
+  <line x1="608" y1="220" x2="642" y2="220" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 3. The spec -->
+  <rect x="650" y="70" width="230" height="300" rx="12" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="765" y="103" text-anchor="middle" font-size="15" font-weight="700" fill="#78350f">PROTOTYPE Spec</text>
+  <rect x="672" y="118" width="186" height="26" rx="5" fill="#78350f"/>
+  <text x="765" y="136" text-anchor="middle" font-size="12.5" font-weight="700" fill="#ffffff" font-family="'SF Mono',Monaco,Menlo,Consolas,monospace">prototype_spec.md</text>
+  <text x="765" y="166" text-anchor="middle" font-size="11.5" fill="#92400e">One artifact both sides share</text>
+  <g font-size="12" fill="#451a03">
+    <text x="672" y="196">Acceptance criteria</text>
+    <text x="672" y="222">Personas &amp; journeys</text>
+    <text x="672" y="248">Screens &amp; interactions</text>
+    <text x="672" y="274">Data &amp; auth model</text>
+    <text x="672" y="300">Non-functional reqs</text>
+    <text x="672" y="326">Audit trail</text>
+  </g>
+  <text x="765" y="356" text-anchor="middle" font-size="11.5" font-weight="600" fill="#92400e">Every decision traces to a source</text>
+
+  <line x1="888" y1="220" x2="922" y2="220" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- 4. Coding agents -->
+  <rect x="930" y="70" width="280" height="300" rx="12" fill="#ecfeff" stroke="#0e7490" stroke-width="2.5"/>
+  <text x="1070" y="103" text-anchor="middle" font-size="16" font-weight="700" fill="#164e63">Coding Agents</text>
+  <text x="1070" y="124" text-anchor="middle" font-size="12" fill="#0e7490">Kiro · Claude Code · AI-DLC</text>
+
+  <rect x="952" y="140" width="236" height="98" rx="8" fill="#ffffff" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="1070" y="162" text-anchor="middle" font-size="13.5" font-weight="700" fill="#164e63">Build Agent</text>
+  <g font-size="11.5" fill="#155e75">
+    <text x="968" y="184">Builds to acceptance criteria</text>
+    <text x="968" y="204">Runs in a secure sandbox</text>
+    <text x="968" y="224">Connected to the shell</text>
+  </g>
+
+  <rect x="952" y="248" width="236" height="98" rx="8" fill="#ffffff" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="1070" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#164e63">Review Agent</text>
+  <g font-size="11.5" fill="#155e75">
+    <text x="968" y="292">Same spec, same criteria</text>
+    <text x="968" y="312">Audits each criterion</text>
+    <text x="968" y="332">Produces a review summary</text>
+  </g>
+  <text x="1070" y="362" text-anchor="middle" font-size="11.5" fill="#0e7490">Developers · FDEs · Science teams</text>
+
+  <!-- human gate band -->
+  <rect x="30" y="410" width="1180" height="120" rx="12" fill="#f0fdf4" stroke="#15803d" stroke-width="2.5"/>
+  <text x="620" y="443" text-anchor="middle" font-size="16" font-weight="700" fill="#14532d">Human-in-the-Loop &#8212; Approval Gate at Every Stage</text>
+  <text x="620" y="466" text-anchor="middle" font-size="12" fill="#166534">Agents collaborate. Humans decide. Everything is grounded. Nobody switches tools.</text>
+
+  <g font-size="12" font-weight="600">
+    <rect x="70" y="484" width="200" height="30" rx="15" fill="#ffffff" stroke="#15803d"/>
+    <text x="170" y="504" text-anchor="middle" fill="#14532d">Validate pain points</text>
+    <rect x="298" y="484" width="200" height="30" rx="15" fill="#ffffff" stroke="#15803d"/>
+    <text x="398" y="504" text-anchor="middle" fill="#14532d">Approve priorities</text>
+    <rect x="526" y="484" width="200" height="30" rx="15" fill="#ffffff" stroke="#15803d"/>
+    <text x="626" y="504" text-anchor="middle" fill="#14532d">Sign off the spec</text>
+    <rect x="754" y="484" width="200" height="30" rx="15" fill="#ffffff" stroke="#15803d"/>
+    <text x="854" y="504" text-anchor="middle" fill="#14532d">Gate the build</text>
+    <rect x="982" y="484" width="198" height="30" rx="15" fill="#ffffff" stroke="#15803d"/>
+    <text x="1081" y="504" text-anchor="middle" fill="#14532d">Accept the review</text>
+  </g>
+
+  <!-- connectors from gates up to lanes -->
+  <g stroke="#86efac" stroke-width="2" stroke-dasharray="5 4">
+    <line x1="155" y1="370" x2="155" y2="410"/>
+    <line x1="465" y1="370" x2="465" y2="410"/>
+    <line x1="765" y1="370" x2="765" y2="410"/>
+    <line x1="1070" y1="370" x2="1070" y2="410"/>
+  </g>
+</svg>

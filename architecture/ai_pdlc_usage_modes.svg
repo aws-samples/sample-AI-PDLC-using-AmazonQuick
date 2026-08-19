@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 880" width="1240" height="880" role="img" aria-labelledby="t d" font-family="'Amazon Ember','Helvetica Neue',Helvetica,Arial,sans-serif">
+  <title id="t">AI-PDLC usage modes: standalone versus orchestrated</title>
+  <desc id="d">Side-by-side comparison. In standalone mode the user addresses a specialist directly, Amazon Quick routes to the matching agent, and the agent runs its own interactive Q and A from Phase 0. In orchestrated mode the user talks only to the Orchestrator, which looks up each specialist by name, reads its question framework, asks the questions itself, then delegates artifact generation to the specialist running headless.</desc>
+
+  <defs>
+    <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0e7490"/>
+    </marker>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4200db"/>
+    </marker>
+    <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6d28d9"/>
+    </marker>
+  </defs>
+
+  <rect width="1240" height="880" fill="#ffffff"/>
+
+  <!-- ============ LEFT PANEL : STANDALONE ============ -->
+  <rect x="20" y="64" width="590" height="756" rx="14" fill="#f7feff" stroke="#0e7490" stroke-width="2.5"/>
+  <rect x="20" y="64" width="590" height="58" rx="14" fill="#ecfeff"/>
+  <text x="315" y="96" text-anchor="middle" font-size="19" font-weight="700" fill="#164e63">Standalone Mode</text>
+  <text x="315" y="114" text-anchor="middle" font-size="12.5" fill="#0e7490">You talk to one specialist directly</text>
+
+  <!-- L1 user -->
+  <rect x="60" y="150" width="510" height="56" rx="28" fill="#ffffff" stroke="#67e8f9" stroke-width="2"/>
+  <text x="315" y="173" text-anchor="middle" font-size="12" font-weight="700" fill="#0e7490">YOU</text>
+  <text x="315" y="192" text-anchor="middle" font-size="13" fill="#164e63" font-style="italic">&#8220;Help me discover customer pain points&#8221;</text>
+  <line x1="315" y1="206" x2="315" y2="230" stroke="#0e7490" stroke-width="2.5" marker-end="url(#a1)"/>
+
+  <!-- L2 quick routes -->
+  <rect x="60" y="232" width="510" height="56" rx="9" fill="#ffffff" stroke="#0891b2" stroke-width="2"/>
+  <text x="315" y="255" text-anchor="middle" font-size="14" font-weight="700" fill="#164e63">Amazon Quick routes to the matching agent</text>
+  <text x="315" y="274" text-anchor="middle" font-size="12" fill="#0e7490">Agent picker surfaces the right specialist automatically</text>
+  <line x1="315" y1="288" x2="315" y2="312" stroke="#0e7490" stroke-width="2.5" marker-end="url(#a1)"/>
+
+  <!-- L3 specialist -->
+  <rect x="60" y="314" width="510" height="56" rx="9" fill="#cffafe" stroke="#0e7490" stroke-width="2.5"/>
+  <text x="315" y="337" text-anchor="middle" font-size="14.5" font-weight="700" fill="#164e63">AI-PDLC Discovery</text>
+  <text x="315" y="356" text-anchor="middle" font-size="12" fill="#155e75">Invoked directly &#8212; no headless header present</text>
+  <line x1="315" y1="370" x2="315" y2="394" stroke="#0e7490" stroke-width="2.5" marker-end="url(#a1)"/>
+
+  <!-- L4 chat guard -->
+  <rect x="60" y="396" width="510" height="56" rx="9" fill="#ffffff" stroke="#0891b2" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="315" y="419" text-anchor="middle" font-size="13.5" font-weight="700" fill="#164e63">Interactive Chat Guard engages</text>
+  <text x="315" y="438" text-anchor="middle" font-size="12" fill="#0e7490">Never skips to generation &#8212; always asks first</text>
+  <line x1="315" y1="452" x2="315" y2="476" stroke="#0e7490" stroke-width="2.5" marker-end="url(#a1)"/>
+
+  <!-- L5 phase 0 -->
+  <rect x="60" y="478" width="510" height="56" rx="9" fill="#ffffff" stroke="#0891b2" stroke-width="2"/>
+  <text x="315" y="501" text-anchor="middle" font-size="13.5" font-weight="700" fill="#164e63">Phase 0 &#8212; the agent asks for setup</text>
+  <text x="315" y="520" text-anchor="middle" font-size="12" fill="#0e7490">Space name &#183; participant &#183; seed context</text>
+  <line x1="315" y1="534" x2="315" y2="558" stroke="#0e7490" stroke-width="2.5" marker-end="url(#a1)"/>
+
+  <!-- L6 QA -->
+  <rect x="60" y="560" width="510" height="56" rx="9" fill="#ffffff" stroke="#0891b2" stroke-width="2"/>
+  <text x="315" y="583" text-anchor="middle" font-size="13.5" font-weight="700" fill="#164e63">Full interactive Q&amp;A, then a gate</text>
+  <text x="315" y="602" text-anchor="middle" font-size="12" fill="#0e7490">Deep Discovery 8&#8211;12 questions &#183; Fast Track 3&#8211;5</text>
+  <line x1="315" y1="616" x2="315" y2="640" stroke="#0e7490" stroke-width="2.5" marker-end="url(#a1)"/>
+
+  <!-- L7 artifact -->
+  <rect x="60" y="642" width="510" height="56" rx="9" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="315" y="665" text-anchor="middle" font-size="13.5" font-weight="700" fill="#78350f">Pain Point Board</text>
+  <text x="315" y="684" text-anchor="middle" font-size="12" fill="#92400e">Saved to your Quick Space &#183; audit entry appended</text>
+
+  <rect x="60" y="726" width="510" height="70" rx="9" fill="#ecfeff" stroke="#67e8f9" stroke-width="1.5"/>
+  <text x="315" y="750" text-anchor="middle" font-size="12.5" font-weight="700" fill="#164e63">Best for</text>
+  <text x="315" y="770" text-anchor="middle" font-size="12" fill="#155e75">Single-stage work &#183; testing one agent &#183; entering the</text>
+  <text x="315" y="787" text-anchor="middle" font-size="12" fill="#155e75">pipeline at the stage you actually need</text>
+
+  <!-- ============ RIGHT PANEL : ORCHESTRATED ============ -->
+  <rect x="630" y="64" width="590" height="756" rx="14" fill="#fbfaff" stroke="#4200db" stroke-width="2.5"/>
+  <rect x="630" y="64" width="590" height="58" rx="14" fill="#f5f3ff"/>
+  <text x="925" y="96" text-anchor="middle" font-size="19" font-weight="700" fill="#35009e">Orchestrated Mode</text>
+  <text x="925" y="114" text-anchor="middle" font-size="12.5" fill="#6d28d9">You talk only to the Orchestrator</text>
+
+  <!-- R1 user -->
+  <rect x="670" y="150" width="510" height="56" rx="28" fill="#ffffff" stroke="#c4b5fd" stroke-width="2"/>
+  <text x="925" y="173" text-anchor="middle" font-size="12" font-weight="700" fill="#6d28d9">YOU</text>
+  <text x="925" y="192" text-anchor="middle" font-size="13" fill="#3b0764" font-style="italic">&#8220;Run the full AI-PDLC pipeline&#8221;</text>
+  <line x1="925" y1="206" x2="925" y2="230" stroke="#4200db" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- R2 orchestrator -->
+  <rect x="670" y="232" width="510" height="56" rx="9" fill="#4200db"/>
+  <text x="925" y="255" text-anchor="middle" font-size="14.5" font-weight="700" fill="#ffffff">AI-PDLC Orchestrator</text>
+  <text x="925" y="274" text-anchor="middle" font-size="12" fill="#e8e6ff">The only agent you ever speak to</text>
+  <line x1="925" y1="288" x2="925" y2="312" stroke="#4200db" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- R3 phase 0 -->
+  <rect x="670" y="314" width="510" height="56" rx="9" fill="#ffffff" stroke="#8575ff" stroke-width="2"/>
+  <text x="925" y="337" text-anchor="middle" font-size="13.5" font-weight="700" fill="#35009e">Phase 0 &#8212; asked once for the whole run</text>
+  <text x="925" y="356" text-anchor="middle" font-size="12" fill="#6d28d9">Participant &#183; space &#183; pace &#183; scope</text>
+  <line x1="925" y1="370" x2="925" y2="392" stroke="#4200db" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- LOOP container -->
+  <rect x="652" y="394" width="546" height="310" rx="12" fill="#f5f3ff" stroke="#8575ff" stroke-width="2" stroke-dasharray="7 4"/>
+  <rect x="672" y="384" width="230" height="21" rx="10" fill="#6d28d9"/>
+  <text x="787" y="399" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">REPEATS FOR EACH STAGE 1&#8594;5</text>
+
+  <!-- loop steps -->
+  <rect x="690" y="416" width="470" height="46" rx="7" fill="#ffffff" stroke="#a78bfa" stroke-width="1.8"/>
+  <text x="925" y="435" text-anchor="middle" font-size="12.5" font-weight="700" fill="#35009e">Finds the specialist by name</text>
+  <text x="925" y="452" text-anchor="middle" font-size="10.5" fill="#6d28d9" font-family="'SF Mono',Monaco,Menlo,Consolas,monospace">find_relevant_chat_agents("AI-PDLC Discovery")</text>
+  <line x1="925" y1="462" x2="925" y2="478" stroke="#6d28d9" stroke-width="2" marker-end="url(#a3)"/>
+
+  <rect x="690" y="480" width="470" height="46" rx="7" fill="#ffffff" stroke="#a78bfa" stroke-width="1.8"/>
+  <text x="925" y="499" text-anchor="middle" font-size="12.5" font-weight="700" fill="#35009e">Reads that specialist&#8217;s question framework</text>
+  <text x="925" y="516" text-anchor="middle" font-size="10.5" fill="#6d28d9" font-family="'SF Mono',Monaco,Menlo,Consolas,monospace">get_chat_agent &#8594; extract phases, gates</text>
+  <line x1="925" y1="526" x2="925" y2="542" stroke="#6d28d9" stroke-width="2" marker-end="url(#a3)"/>
+
+  <rect x="690" y="544" width="470" height="46" rx="7" fill="#ffffff" stroke="#a78bfa" stroke-width="1.8"/>
+  <text x="925" y="563" text-anchor="middle" font-size="12.5" font-weight="700" fill="#35009e">Asks you those questions itself, in this chat</text>
+  <text x="925" y="580" text-anchor="middle" font-size="11" fill="#6d28d9">No agent switching &#183; pre-fills answers it can infer</text>
+  <line x1="925" y1="590" x2="925" y2="606" stroke="#6d28d9" stroke-width="2" marker-end="url(#a3)"/>
+
+  <rect x="690" y="608" width="470" height="40" rx="7" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="925" y="633" text-anchor="middle" font-size="12.5" font-weight="700" fill="#14532d">Gate &#8212; you approve before anything is generated</text>
+  <line x1="925" y1="648" x2="925" y2="664" stroke="#6d28d9" stroke-width="2" marker-end="url(#a3)"/>
+
+  <rect x="690" y="666" width="470" height="30" rx="7" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.8"/>
+  <text x="925" y="685" text-anchor="middle" font-size="12" font-weight="700" fill="#4c1d95">Delegates: specialist runs HEADLESS &#8212; skips all Q&amp;A</text>
+
+  <!-- loop-back arrow -->
+  <path d="M 1168 681 C 1188 681 1188 439 1168 439" fill="none" stroke="#8575ff" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#a3)"/>
+
+  <line x1="925" y1="704" x2="925" y2="722" stroke="#4200db" stroke-width="2.5" marker-end="url(#a2)"/>
+
+  <!-- R final -->
+  <rect x="670" y="724" width="510" height="72" rx="9" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="925" y="748" text-anchor="middle" font-size="13.5" font-weight="700" fill="#78350f">All five artifacts + shared audit.md</text>
+  <text x="925" y="768" text-anchor="middle" font-size="12" fill="#92400e">Orchestrator presents each one and tracks progress</text>
+  <text x="925" y="786" text-anchor="middle" font-size="12" fill="#92400e">Best for: full pipeline runs &#183; workshops</text>
+</svg>

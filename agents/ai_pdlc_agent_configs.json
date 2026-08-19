@@ -1,0 +1,131 @@
+{
+  "version": "11.0 \u2014 6 agents, fully AI-PDLC branded, no external methodology references",
+  "architecture": {
+    "orchestrator": "AI-PDLC Orchestrator \u2014 single user-facing agent. Reads specialist frameworks dynamically at runtime, asks all questions in chat, delegates headless.",
+    "specialists": "5 specialist agents \u2014 work standalone (interactive) OR headless (when invoked by Orchestrator)",
+    "dynamic_lookup": "Orchestrator finds specialists by name (find_relevant_chat_agents) \u2014 no hardcoded IDs"
+  },
+  "flow": {
+    "pipeline": "Discovery \u2192 Prioritize \u2192 Working Backwards \u2192 Spec Generator \u2192 Designer",
+    "single_solution": "Discovery \u2192 Working Backwards \u2192 Spec Generator \u2192 Designer",
+    "multiple_solutions": "Discovery \u2192 Prioritize \u2192 Working Backwards \u2192 Spec Generator \u2192 Designer",
+    "design_options": "External (Figma/Miro) OR Internal (AI-PDLC Designer in Quick)"
+  },
+  "phase_0_setup": [
+    "1. Identify Participants",
+    "2. Quick Suite space name (user-provided)",
+    "3. Seed Context",
+    "4. Q&A Mode (Deep Discovery / Fast Track)",
+    "5. Pipeline scope (Full / Single stage)"
+  ],
+  "audit_format": {
+    "description": "All specialists produce audit entries. Orchestrator does not write audit \u2014 specialists do after artifact generation.",
+    "template": "\ud83d\udccb AUDIT LOG\nAgent: [agent name]\nPhase: [phase number] \u2014 [name]\nDecision: [summary]\nDetails: [bullets]\nArtifact: [filename]\nArtifact location: [user-provided space name]\nValidated by: [name (alias)]\nEvidence: [supporting evidence]\nTimestamp: [YYYY-MM-DD HH:MM IST]\n---"
+  },
+  "agents": [
+    {
+      "name": "AI-PDLC Orchestrator",
+      "role": "User-facing entry point",
+      "description": "Single interface for the entire pipeline. Reads specialist frameworks dynamically, asks questions, delegates headless.",
+      "key_behaviors": [
+        "Dynamic reading (get_chat_agent \u2192 extract questions)",
+        "Respects Deep/Fast mode",
+        "Delegates via start_task with pre-filled context",
+        "Progress tracker",
+        "Routing logic (single/multi solution)",
+        "Never duplicates specialist questions"
+      ],
+      "handoff": "Delegates to specialists (headless)"
+    },
+    {
+      "name": "AI-PDLC Discovery",
+      "role": "Specialist (Position 1 of 5)",
+      "description": "Pain-point discovery with Business Context Mode Selection, Intelligent Defaults, Ambiguity Resolution, Solution Analysis routing.",
+      "modes": [
+        "Interactive (direct via agent picker)",
+        "Headless (via Orchestrator delegation)"
+      ],
+      "output": "Pain Point Board + Solution Analysis routing",
+      "handoff": "\u2192 Working Backwards (single) OR \u2192 Prioritize (multiple)"
+    },
+    {
+      "name": "AI-PDLC Prioritize",
+      "role": "Specialist (Position 2 of 5)",
+      "description": "Dual scoring frameworks (Agentic vs Application). Source tracking. Re-confirmation loop.",
+      "modes": [
+        "Interactive",
+        "Headless"
+      ],
+      "scoring_frameworks": {
+        "agentic": [
+          "Business Value 25%",
+          "LLM Capability Match 20%",
+          "Tool Availability 15%",
+          "User Acceptance 15%",
+          "Time to Market 15%",
+          "Strategic Alignment 10%"
+        ],
+        "application": [
+          "Business Value 25%",
+          "Technical Feasibility 20%",
+          "User Impact 20%",
+          "Development Effort 15%",
+          "Integration Complexity 10%",
+          "Strategic Alignment 10%"
+        ]
+      },
+      "output": "Prioritization Matrix",
+      "handoff": "\u2192 Working Backwards"
+    },
+    {
+      "name": "AI-PDLC Working Backwards",
+      "role": "Specialist (Position 3 of 5)",
+      "description": "PR/FAQ generation using Amazon Working Backwards. Validates concept with rigorous economics and risk questions.",
+      "modes": [
+        "Interactive",
+        "Headless"
+      ],
+      "press_release": "8-part structure (headline, subheading, problem, solution w/ alternatives comparison, leader quote, how it works, customer quote, getting started)",
+      "faq": "7 customer + 15-20+ internal (economics, risk, strategy)",
+      "output": "PR/FAQ Document",
+      "handoff": "\u2192 Spec Generator"
+    },
+    {
+      "name": "AI-PDLC Spec Generator",
+      "role": "Specialist (Position 4 of 5)",
+      "description": "Separate Agentic/Application templates. Produces PROTOTYPE specs + Design Handoff Brief.",
+      "modes": [
+        "Interactive",
+        "Headless"
+      ],
+      "outputs": [
+        "PROTOTYPE Spec (for Kiro/engineering)",
+        "Design Handoff Brief (for UX/Design)"
+      ],
+      "handoff_options": [
+        "Engineering (Kiro/ACP)",
+        "External design (Figma/Miro)",
+        "Quick Designer agent",
+        "Both in parallel",
+        "Separate teams"
+      ],
+      "handoff": "\u2192 Designer (or external tools)"
+    },
+    {
+      "name": "AI-PDLC Designer",
+      "role": "Specialist (Position 5 of 5, optional)",
+      "description": "Journey maps, wireframes, clickable prototypes \u2014 all inside Quick. No external design tools needed.",
+      "modes": [
+        "Interactive",
+        "Headless"
+      ],
+      "produces": [
+        "Journey Map (Excalidraw/SVG)",
+        "Wireframes (HTML)",
+        "Clickable Prototype (HTML)"
+      ],
+      "output": "Design artifacts for validation",
+      "handoff": "\u2192 None (final stage)"
+    }
+  ]
+}

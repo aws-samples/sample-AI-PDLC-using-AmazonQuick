@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 640" width="1240" height="640" role="img" aria-labelledby="t d" font-family="'Amazon Ember','Helvetica Neue',Helvetica,Arial,sans-serif">
+  <title id="t">How humans and agents divide the work across the AI-PDLC lifecycle</title>
+  <desc id="d">A swimlane chart with five stage columns (Discovery, Prioritize, Working Backwards, Spec Generator, Designer) and three lanes. The humans lane shows what the product team brings and decides at each stage. The agents lane shows what the Amazon Quick agents draft. The output lane shows the single artifact each stage produces. A band across the bottom shows that a human approves at every gate.</desc>
+
+  <rect width="1240" height="640" fill="#ffffff"/>
+
+  <!-- stage header -->
+  <g>
+    <rect x="180" y="64" width="208" height="46" rx="8" fill="#4200db"/>
+    <text x="284" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">1 · Discovery</text>
+    <text x="284" y="102" text-anchor="middle" font-size="10.5" fill="#e8e6ff">DISCOVER</text>
+
+    <rect x="392" y="64" width="208" height="46" rx="8" fill="#4200db"/>
+    <text x="496" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">2 · Prioritize</text>
+    <text x="496" y="102" text-anchor="middle" font-size="10.5" fill="#e8e6ff">DECIDE</text>
+
+    <rect x="604" y="64" width="208" height="46" rx="8" fill="#4200db"/>
+    <text x="708" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">3 · Working Backwards</text>
+    <text x="708" y="102" text-anchor="middle" font-size="10.5" fill="#e8e6ff">DECIDE</text>
+
+    <rect x="816" y="64" width="208" height="46" rx="8" fill="#4200db"/>
+    <text x="920" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">4 · Spec Generator</text>
+    <text x="920" y="102" text-anchor="middle" font-size="10.5" fill="#e8e6ff">DESIGN</text>
+
+    <rect x="1028" y="64" width="192" height="46" rx="8" fill="#6d28d9"/>
+    <text x="1124" y="86" text-anchor="middle" font-size="13.5" font-weight="700" fill="#ffffff">5 · Designer</text>
+    <text x="1124" y="102" text-anchor="middle" font-size="10.5" fill="#e8e6ff">PROTOTYPE · optional</text>
+  </g>
+
+  <!-- lane labels -->
+  <rect x="20" y="118" width="150" height="146" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2.5"/>
+  <text x="95" y="180" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">HUMANS</text>
+  <text x="95" y="200" text-anchor="middle" font-size="11" fill="#166534">You decide</text>
+  <text x="95" y="217" text-anchor="middle" font-size="9.5" fill="#15803d">PMs · BAs · PgMs</text>
+  <text x="95" y="231" text-anchor="middle" font-size="9.5" fill="#15803d">Designers</text>
+
+  <rect x="20" y="272" width="150" height="146" rx="8" fill="#f5f3ff" stroke="#4200db" stroke-width="2.5"/>
+  <text x="95" y="334" text-anchor="middle" font-size="15" font-weight="700" fill="#35009e">AGENTS</text>
+  <text x="95" y="354" text-anchor="middle" font-size="11" fill="#6d28d9">They draft</text>
+  <text x="95" y="371" text-anchor="middle" font-size="9.5" fill="#6d28d9">on Amazon Quick</text>
+
+  <rect x="20" y="426" width="150" height="86" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="95" y="462" text-anchor="middle" font-size="15" font-weight="700" fill="#78350f">OUTPUT</text>
+  <text x="95" y="481" text-anchor="middle" font-size="10" fill="#92400e">One artifact</text>
+  <text x="95" y="495" text-anchor="middle" font-size="10" fill="#92400e">per stage</text>
+
+  <!-- HUMAN lane cells -->
+  <g font-size="11" fill="#14532d">
+    <rect x="180" y="118" width="208" height="146" rx="8" fill="#f7fef9" stroke="#86efac" stroke-width="1.8"/>
+    <text x="284" y="146" text-anchor="middle">Share your sources</text>
+    <text x="284" y="168" text-anchor="middle">Answer discovery</text>
+    <text x="284" y="184" text-anchor="middle">questions</text>
+    <text x="284" y="208" text-anchor="middle">Validate each</text>
+    <text x="284" y="224" text-anchor="middle">pain point</text>
+    <text x="284" y="248" text-anchor="middle" font-weight="700">Confirm severity</text>
+
+    <rect x="392" y="118" width="208" height="146" rx="8" fill="#f7fef9" stroke="#86efac" stroke-width="1.8"/>
+    <text x="496" y="146" text-anchor="middle">Score with your team</text>
+    <text x="496" y="170" text-anchor="middle">Challenge the</text>
+    <text x="496" y="186" text-anchor="middle">weightings</text>
+    <text x="496" y="210" text-anchor="middle" font-weight="700">Override the ranking</text>
+    <text x="496" y="234" text-anchor="middle">Record why you</text>
+    <text x="496" y="250" text-anchor="middle">overrode it</text>
+
+    <rect x="604" y="118" width="208" height="146" rx="8" fill="#f7fef9" stroke="#86efac" stroke-width="1.8"/>
+    <text x="708" y="146" text-anchor="middle">Answer the hard</text>
+    <text x="708" y="162" text-anchor="middle">questions</text>
+    <text x="708" y="186" text-anchor="middle">Set the customer</text>
+    <text x="708" y="202" text-anchor="middle">promise</text>
+    <text x="708" y="226" text-anchor="middle" font-weight="700">Approve the</text>
+    <text x="708" y="242" text-anchor="middle" font-weight="700">narrative</text>
+
+    <rect x="816" y="118" width="208" height="146" rx="8" fill="#f7fef9" stroke="#86efac" stroke-width="1.8"/>
+    <text x="920" y="146" text-anchor="middle">Confirm scope and</text>
+    <text x="920" y="162" text-anchor="middle">key screens</text>
+    <text x="920" y="186" text-anchor="middle">Set constraints and</text>
+    <text x="920" y="202" text-anchor="middle">non-functionals</text>
+    <text x="920" y="226" text-anchor="middle" font-weight="700">Sign off the spec</text>
+    <text x="920" y="248" text-anchor="middle">before any build</text>
+
+    <rect x="1028" y="118" width="192" height="146" rx="8" fill="#f7fef9" stroke="#86efac" stroke-width="1.8"/>
+    <text x="1124" y="146" text-anchor="middle">State brand and</text>
+    <text x="1124" y="162" text-anchor="middle">accessibility needs</text>
+    <text x="1124" y="186" text-anchor="middle">React to the visuals</text>
+    <text x="1124" y="210" text-anchor="middle" font-weight="700">Request changes</text>
+    <text x="1124" y="234" text-anchor="middle">Validate with real</text>
+    <text x="1124" y="250" text-anchor="middle">users</text>
+  </g>
+
+  <!-- AGENT lane cells -->
+  <g font-size="11" fill="#3b0764">
+    <rect x="180" y="272" width="208" height="146" rx="8" fill="#faf9ff" stroke="#c4b5fd" stroke-width="1.8"/>
+    <text x="284" y="300" text-anchor="middle">Reads your connected</text>
+    <text x="284" y="316" text-anchor="middle">sources</text>
+    <text x="284" y="340" text-anchor="middle">Clusters themes</text>
+    <text x="284" y="364" text-anchor="middle">Rates severity and</text>
+    <text x="284" y="380" text-anchor="middle">frequency</text>
+    <text x="284" y="404" text-anchor="middle">Routes the next stage</text>
+
+    <rect x="392" y="272" width="208" height="146" rx="8" fill="#faf9ff" stroke="#c4b5fd" stroke-width="1.8"/>
+    <text x="496" y="300" text-anchor="middle">Applies a weighted</text>
+    <text x="496" y="316" text-anchor="middle">scoring framework</text>
+    <text x="496" y="340" text-anchor="middle">Ranks the use cases</text>
+    <text x="496" y="364" text-anchor="middle">Shows the maths, not</text>
+    <text x="496" y="380" text-anchor="middle">just the verdict</text>
+    <text x="496" y="404" text-anchor="middle">Logs your override</text>
+
+    <rect x="604" y="272" width="208" height="146" rx="8" fill="#faf9ff" stroke="#c4b5fd" stroke-width="1.8"/>
+    <text x="708" y="300" text-anchor="middle">Drafts the press</text>
+    <text x="708" y="316" text-anchor="middle">release</text>
+    <text x="708" y="340" text-anchor="middle">Writes customer and</text>
+    <text x="708" y="356" text-anchor="middle">internal FAQs</text>
+    <text x="708" y="380" text-anchor="middle">Presses on economics</text>
+    <text x="708" y="404" text-anchor="middle">and failure modes</text>
+
+    <rect x="816" y="272" width="208" height="146" rx="8" fill="#faf9ff" stroke="#c4b5fd" stroke-width="1.8"/>
+    <text x="920" y="300" text-anchor="middle">Writes acceptance</text>
+    <text x="920" y="316" text-anchor="middle">criteria</text>
+    <text x="920" y="340" text-anchor="middle">Specifies screens,</text>
+    <text x="920" y="356" text-anchor="middle">data and auth</text>
+    <text x="920" y="380" text-anchor="middle">Produces the design</text>
+    <text x="920" y="404" text-anchor="middle">handoff brief</text>
+
+    <rect x="1028" y="272" width="192" height="146" rx="8" fill="#faf9ff" stroke="#c4b5fd" stroke-width="1.8"/>
+    <text x="1124" y="300" text-anchor="middle">Builds the journey</text>
+    <text x="1124" y="316" text-anchor="middle">map</text>
+    <text x="1124" y="340" text-anchor="middle">Generates wireframes</text>
+    <text x="1124" y="364" text-anchor="middle">Builds a clickable</text>
+    <text x="1124" y="380" text-anchor="middle">prototype</text>
+    <text x="1124" y="404" text-anchor="middle">All inside Quick</text>
+  </g>
+
+  <!-- OUTPUT lane cells -->
+  <g font-size="11.5" font-weight="700" fill="#78350f">
+    <rect x="180" y="426" width="208" height="86" rx="8" fill="#fffdf5" stroke="#fcd34d" stroke-width="1.8"/>
+    <text x="284" y="462" text-anchor="middle">Pain Point Board</text>
+    <text x="284" y="484" text-anchor="middle" font-size="10" font-weight="400" fill="#92400e">severity · frequency · evidence</text>
+
+    <rect x="392" y="426" width="208" height="86" rx="8" fill="#fffdf5" stroke="#fcd34d" stroke-width="1.8"/>
+    <text x="496" y="462" text-anchor="middle">Scoring Matrix</text>
+    <text x="496" y="484" text-anchor="middle" font-size="10" font-weight="400" fill="#92400e">ranked, with the rationale</text>
+
+    <rect x="604" y="426" width="208" height="86" rx="8" fill="#fffdf5" stroke="#fcd34d" stroke-width="1.8"/>
+    <text x="708" y="462" text-anchor="middle">PR/FAQ Document</text>
+    <text x="708" y="484" text-anchor="middle" font-size="10" font-weight="400" fill="#92400e">the customer promise, tested</text>
+
+    <rect x="816" y="426" width="208" height="86" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+    <text x="920" y="456" text-anchor="middle">PROTOTYPE Spec</text>
+    <text x="920" y="474" text-anchor="middle" font-size="9.5" font-weight="400" fill="#92400e">+ Design Handoff Brief</text>
+    <text x="920" y="492" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">→ hand to a coding agent</text>
+
+    <rect x="1028" y="426" width="192" height="86" rx="8" fill="#fffdf5" stroke="#fcd34d" stroke-width="1.8"/>
+    <text x="1124" y="456" text-anchor="middle">Journey Map</text>
+    <text x="1124" y="474" text-anchor="middle">Wireframes</text>
+    <text x="1124" y="492" text-anchor="middle">Clickable Prototype</text>
+  </g>
+
+  <!-- gate band -->
+  <rect x="20" y="528" width="1200" height="54" rx="10" fill="#f0fdf4" stroke="#15803d" stroke-width="2.5"/>
+  <text x="620" y="551" text-anchor="middle" font-size="14" font-weight="700" fill="#14532d">A human approves at every gate &#8212; no stage advances without your decision</text>
+  <text x="620" y="571" text-anchor="middle" font-size="11.5" fill="#166534">Every artifact lands in your Quick Space with a shared audit.md recording who decided what, and why</text>
+
+  <text x="620" y="608" text-anchor="middle" font-size="11.5" fill="#64748b">Agents draft. You decide. The reasoning stays traceable end to end.</text>
+</svg>

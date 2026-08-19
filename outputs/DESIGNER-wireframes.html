@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  :root {
+    --clinical-blue: #1E3A5F;
+    --clinical-green: #2E7D32;
+    --clinical-light: #E8F4FD;
+    --border: #CBD5E1;
+    --bg: #F1F5F9;
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font); background: #f8fafc; color: #1e293b; padding: 32px; }
+  
+  .header { text-align: center; margin-bottom: 40px; }
+  .header h1 { font-size: 24px; color: var(--clinical-blue); margin-bottom: 6px; }
+  .header p { font-size: 13px; color: #64748b; }
+  .badge { display: inline-block; background: var(--clinical-blue); color: white; font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .wireframe-section { margin-bottom: 48px; }
+  .wireframe-title { font-size: 16px; font-weight: 700; color: var(--clinical-blue); margin-bottom: 4px; }
+  .wireframe-desc { font-size: 12px; color: #64748b; margin-bottom: 16px; }
+  
+  .wireframe-box { 
+    border: 2px solid var(--border); 
+    border-radius: 8px; 
+    background: white; 
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  /* Screen 1: Consultation Workspace */
+  .nav-bar { background: var(--clinical-blue); color: white; padding: 10px 16px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .nav-bar .logo { font-weight: 700; font-size: 14px; }
+  .nav-bar .nav-items { display: flex; gap: 16px; font-size: 11px; opacity: 0.8; }
+  
+  .three-col { display: grid; grid-template-columns: 280px 1fr 260px; min-height: 500px; }
+  .col { border-right: 1px solid var(--border); padding: 16px; }
+  .col:last-child { border-right: none; }
+  .col-header { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.06em; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+  
+  .placeholder-block { background: var(--bg); border: 1px dashed var(--border); border-radius: 4px; padding: 10px; margin-bottom: 8px; font-size: 11px; color: #64748b; }
+  .placeholder-block.highlight { background: #E8F5E9; border-color: var(--clinical-green); color: #1B5E20; }
+  .placeholder-block.ai { background: #E3F2FD; border-color: #1976D2; color: #0D47A1; }
+  .placeholder-block.warning { background: #FFF3E0; border-color: #FF8F00; color: #E65100; }
+  
+  .confidence-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; }
+  .confidence-badge.high { background: #C8E6C9; color: #1B5E20; }
+  .confidence-badge.med { background: #FFF9C4; color: #F57F17; }
+
+  .btn-placeholder { display: inline-block; background: var(--clinical-green); color: white; font-size: 11px; padding: 6px 12px; border-radius: 4px; font-weight: 600; }
+  .btn-outline { display: inline-block; border: 1px solid var(--border); color: #64748b; font-size: 11px; padding: 6px 12px; border-radius: 4px; }
+
+  /* Screen 2: AI Detail */
+  .detail-panel { padding: 24px; max-width: 700px; margin: 0 auto; }
+  .reasoning-step { display: flex; gap: 12px; margin-bottom: 16px; padding: 12px; background: #F8FAFC; border-radius: 6px; border-left: 3px solid var(--clinical-blue); }
+  .step-num { width: 24px; height: 24px; background: var(--clinical-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .step-content { font-size: 12px; line-height: 1.6; }
+  .step-content strong { color: var(--clinical-blue); }
+
+  .citation-box { background: #FFFDE7; border: 1px solid #FFF176; border-radius: 4px; padding: 10px; font-size: 11px; margin-top: 12px; }
+
+  /* Screen 3: Order Confirmation */
+  .order-panel { padding: 24px; max-width: 600px; margin: 0 auto; }
+  .order-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .order-row { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; }
+  .order-row:last-child { border: none; }
+  .order-label { color: #64748b; }
+  .order-value { font-weight: 600; }
+  .safety-check { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--clinical-green); padding: 4px 0; }
+  .safety-icon { width: 16px; height: 16px; background: #C8E6C9; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+
+  /* Screen 4: Dashboard */
+  .dashboard-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 16px; }
+  .dash-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px; text-align: center; }
+  .dash-value { font-size: 22px; font-weight: 700; color: var(--clinical-blue); }
+  .dash-label { font-size: 10px; color: #64748b; margin-top: 4px; }
+  .dash-table { margin: 16px; font-size: 11px; }
+  .dash-table table { width: 100%; border-collapse: collapse; }
+  .dash-table th { text-align: left; padding: 8px; color: #64748b; font-weight: 600; border-bottom: 1px solid var(--border); font-size: 10px; text-transform: uppercase; }
+  .dash-table td { padding: 8px; border-bottom: 1px solid #f1f5f9; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .status-dot.active { background: var(--clinical-green); }
+  .status-dot.pending { background: #FF8F00; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="badge">AnyCompany ClinicalFlow™</div>
+  <h1>Wireframe Screens — Low Fidelity</h1>
+  <p>4 Key Screens · Desktop Primary (1920×1080) · 3-Column Layout</p>
+</div>
+
+<!-- SCREEN 1: Consultation Workspace -->
+<div class="wireframe-section">
+  <div class="wireframe-title">Screen 1: Consultation Workspace</div>
+  <div class="wireframe-desc">Primary physician view — single-pane with patient context, AI recommendations, and actions</div>
+  <div class="wireframe-box">
+    <div class="nav-bar">
+      <div class="logo">⚕️ ClinicalFlow</div>
+      <div class="nav-items">
+        <span>Dashboard</span>
+        <span style="opacity:1; font-weight:600;">Consultations</span>
+        <span>Patients</span>
+        <span>Settings</span>
+      </div>
+      <div>Dr. Martinez · Internal Medicine</div>
+    </div>
+    <div class="three-col">
+      <!-- Left: Patient Context -->
+      <div class="col">
+        <div class="col-header">Patient Context</div>
+        <div class="placeholder-block"><strong>Robert Chen, 67M</strong><br>MRN: 4428-1190</div>
+        <div class="placeholder-block"><strong>Active Conditions:</strong><br>• Atrial Fibrillation<br>• Hypertension Stage 2<br>• Type 2 Diabetes</div>
+        <div class="placeholder-block"><strong>Current Medications:</strong><br>• Metoprolol 50mg BID<br>• Lisinopril 20mg daily<br>• Metformin 1000mg BID</div>
+        <div class="placeholder-block"><strong>Recent Labs (3d ago):</strong><br>• HbA1c: 7.2%<br>• eGFR: 62 mL/min<br>• INR: Not on anticoag</div>
+        <div class="placeholder-block"><strong>Allergies:</strong> Penicillin (rash)</div>
+      </div>
+      <!-- Center: AI Recommendations -->
+      <div class="col">
+        <div class="col-header">AI-Guided Recommendations</div>
+        <div class="placeholder-block ai">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong>🤖 Anticoagulation Recommended</strong>
+            <span class="confidence-badge high">HIGH 92%</span>
+          </div>
+          Consider initiating anticoagulant therapy based on CHA₂DS₂-VASc score of 4.<br><br>
+          <em style="font-size:10px; color:#1565C0;">📎 ACC/AHA 2023 AF Guideline §4.3.1</em><br>
+          <a href="#" style="font-size:10px; color:#1976D2;">View reasoning →</a>
+        </div>
+        <div class="placeholder-block ai">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong>🤖 Renal Dosing Alert</strong>
+            <span class="confidence-badge med">MED 74%</span>
+          </div>
+          eGFR 62: Consider dose adjustment for renally-cleared medications.<br>
+          <a href="#" style="font-size:10px; color:#1976D2;">View reasoning →</a>
+        </div>
+        <div class="placeholder-block" style="background:#fff; border-style:solid;">
+          <strong>Clinical Notes</strong><br>
+          <span style="color:#94a3b8;">[Free-text entry area for consultation notes...]</span>
+        </div>
+      </div>
+      <!-- Right: Actions -->
+      <div class="col">
+        <div class="col-header">Orders & Actions</div>
+        <div class="placeholder-block highlight">
+          <strong>Quick Order:</strong><br>
+          Warfarin 5mg PO daily<br>
+          <em style="font-size:10px;">(Auto-populated from AI rec)</em><br><br>
+          <span class="btn-placeholder">Accept & Order →</span>
+        </div>
+        <div class="placeholder-block">
+          <strong>Pending Orders (0)</strong><br>
+          <span style="color:#94a3b8;">No pending orders</span>
+        </div>
+        <div class="placeholder-block">
+          <strong>Quick Actions:</strong><br>
+          <span class="btn-outline">+ New Order</span>
+          <span class="btn-outline">📋 Refer</span><br><br>
+          <span class="btn-outline">🔄 Override AI</span>
+        </div>
+        <div style="margin-top:16px; text-align:center;">
+          <span class="btn-placeholder" style="background:var(--clinical-blue);">Complete Consultation ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 2: AI Recommendation Detail -->
+<div class="wireframe-section">
+  <div class="wireframe-title">Screen 2: AI Recommendation Detail</div>
+  <div class="wireframe-desc">Expanded chain-of-thought explainability view — shows AI reasoning process and guideline citations</div>
+  <div class="wireframe-box">
+    <div class="nav-bar">
+      <div class="logo">⚕️ ClinicalFlow</div>
+      <div class="nav-items"><span>← Back to Consultation</span></div>
+      <div>AI Reasoning · Robert Chen</div>
+    </div>
+    <div class="detail-panel">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <div>
+          <h3 style="font-size:16px; color:var(--clinical-blue);">Anticoagulation Recommended</h3>
+          <p style="font-size:12px; color:#64748b;">Chain-of-thought reasoning</p>
+        </div>
+        <span class="confidence-badge high" style="font-size:12px; padding:4px 10px;">HIGH CONFIDENCE · 92%</span>
+      </div>
+      
+      <div class="reasoning-step">
+        <div class="step-num">1</div>
+        <div class="step-content"><strong>Patient Risk Assessment:</strong> CHA₂DS₂-VASc score calculated = 4 (Age 67 [+1], Hypertension [+1], Diabetes [+1], AF [+1]). Score ≥2 indicates high stroke risk.</div>
+      </div>
+      <div class="reasoning-step">
+        <div class="step-num">2</div>
+        <div class="step-content"><strong>Guideline Match:</strong> ACC/AHA 2023 Atrial Fibrillation Guideline §4.3.1 — "For patients with AF and CHA₂DS₂-VASc ≥2 (men) or ≥3 (women), oral anticoagulation is recommended (Class I, LOE A)."</div>
+      </div>
+      <div class="reasoning-step">
+        <div class="step-num">3</div>
+        <div class="step-content"><strong>Contraindication Check:</strong> No active bleeding. No recent surgery. Penicillin allergy does not affect anticoagulant selection. eGFR 62 — warfarin safe (not renally cleared).</div>
+      </div>
+      <div class="reasoning-step">
+        <div class="step-num">4</div>
+        <div class="step-content"><strong>Drug Selection:</strong> Warfarin selected over DOACs due to: (a) renal consideration for future monitoring, (b) established INR monitoring infrastructure at this facility. Alternative: Apixaban 5mg BID also appropriate.</div>
+      </div>
+      
+      <div class="citation-box">
+        <strong>📚 Citations:</strong><br>
+        • ACC/AHA 2023 Guideline for Management of AF, §4.3.1 (Class I, LOE A)<br>
+        • CHEST 2022 Antithrombotic Therapy Guidelines, Table 4<br>
+        • Patient EHR: Labs from 2026-07-05, Medication list current
+      </div>
+      
+      <div style="margin-top:20px; display:flex; gap:8px;">
+        <span class="btn-placeholder">Accept Recommendation</span>
+        <span class="btn-outline">Modify Dosage</span>
+        <span class="btn-outline" style="color:#C62828; border-color:#C62828;">Override with Reason</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3: Order Confirmation -->
+<div class="wireframe-section">
+  <div class="wireframe-title">Screen 3: Order Confirmation</div>
+  <div class="wireframe-desc">Safety-checked order review before submission — includes drug interaction and dosage verification</div>
+  <div class="wireframe-box">
+    <div class="nav-bar">
+      <div class="logo">⚕️ ClinicalFlow</div>
+      <div class="nav-items"><span>← Back to Consultation</span></div>
+      <div>Order Review · Robert Chen</div>
+    </div>
+    <div class="order-panel">
+      <h3 style="font-size:16px; color:var(--clinical-blue); margin-bottom:16px;">📋 Order Confirmation</h3>
+      
+      <div class="order-card">
+        <div style="font-size:13px; font-weight:700; margin-bottom:12px; color:var(--clinical-blue);">Warfarin 5mg PO Daily</div>
+        <div class="order-row"><span class="order-label">Medication</span><span class="order-value">Warfarin Sodium</span></div>
+        <div class="order-row"><span class="order-label">Dose</span><span class="order-value">5 mg</span></div>
+        <div class="order-row"><span class="order-label">Route</span><span class="order-value">Oral</span></div>
+        <div class="order-row"><span class="order-label">Frequency</span><span class="order-value">Once daily</span></div>
+        <div class="order-row"><span class="order-label">Duration</span><span class="order-value">Ongoing (review in 4 weeks)</span></div>
+        <div class="order-row"><span class="order-label">Source</span><span class="order-value">AI Recommendation (accepted)</span></div>
+      </div>
+
+      <div class="order-card" style="border-color: var(--clinical-green);">
+        <div style="font-size:12px; font-weight:700; color:var(--clinical-green); margin-bottom:8px;">✓ Safety Checks Passed</div>
+        <div class="safety-check"><div class="safety-icon">✓</div> No known drug allergies for this medication</div>
+        <div class="safety-check"><div class="safety-icon">✓</div> No critical drug-drug interactions detected</div>
+        <div class="safety-check"><div class="safety-icon">✓</div> Dosage within therapeutic range for patient weight/age</div>
+        <div class="safety-check"><div class="safety-icon">✓</div> Renal function adequate (eGFR 62 — no adjustment needed)</div>
+        <div class="safety-check"><div class="safety-icon">✓</div> Baseline INR monitoring order auto-generated</div>
+      </div>
+
+      <div class="placeholder-block warning">
+        <strong>⚠️ Monitoring Required:</strong> INR check in 3-5 days after initiation. Weekly INR until stable. Auto-reminder will be set.
+      </div>
+
+      <div style="margin-top:20px; display:flex; gap:8px; justify-content:center;">
+        <span class="btn-placeholder" style="padding:10px 24px; font-size:13px;">✓ Confirm & Submit Order</span>
+        <span class="btn-outline" style="padding:10px 24px;">Modify</span>
+        <span class="btn-outline" style="padding:10px 24px; color:#C62828;">Cancel</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 4: Patient Summary Dashboard -->
+<div class="wireframe-section">
+  <div class="wireframe-title">Screen 4: Patient Summary Dashboard</div>
+  <div class="wireframe-desc">Overview of active consultations, pending orders, and AI acceptance metrics for the physician</div>
+  <div class="wireframe-box">
+    <div class="nav-bar">
+      <div class="logo">⚕️ ClinicalFlow</div>
+      <div class="nav-items">
+        <span style="opacity:1; font-weight:600;">Dashboard</span>
+        <span>Consultations</span>
+        <span>Patients</span>
+        <span>Settings</span>
+      </div>
+      <div>Dr. Martinez · Internal Medicine</div>
+    </div>
+    <div class="dashboard-grid">
+      <div class="dash-card"><div class="dash-value">12</div><div class="dash-label">Today's Consultations</div></div>
+      <div class="dash-card"><div class="dash-value">3</div><div class="dash-label">Pending Orders</div></div>
+      <div class="dash-card"><div class="dash-value">87%</div><div class="dash-label">AI Acceptance Rate</div></div>
+      <div class="dash-card"><div class="dash-value">8.2m</div><div class="dash-label">Avg. Consultation Time</div></div>
+    </div>
+    <div class="dash-table">
+      <table>
+        <thead>
+          <tr><th>Patient</th><th>Status</th><th>AI Recs</th><th>Actions</th><th>Time</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="status-dot active"></span>Robert Chen, 67M</td><td>Completed</td><td>2 accepted</td><td>Orders placed</td><td>9.1 min</td></tr>
+          <tr><td><span class="status-dot active"></span>Maria Santos, 54F</td><td>Completed</td><td>1 accepted, 1 override</td><td>Referral sent</td><td>7.3 min</td></tr>
+          <tr><td><span class="status-dot pending"></span>James Wilson, 72M</td><td>In Progress</td><td>Pending review</td><td>—</td><td>—</td></tr>
+          <tr><td><span class="status-dot pending"></span>Aisha Patel, 45F</td><td>Scheduled</td><td>—</td><td>—</td><td>—</td></tr>
+          <tr><td><span class="status-dot active"></span>Thomas Lee, 61M</td><td>Completed</td><td>1 accepted</td><td>Lab ordered</td><td>6.8 min</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
