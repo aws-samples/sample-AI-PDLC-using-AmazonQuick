@@ -161,8 +161,8 @@ No build step, runtime, or package installation is required. This repository con
 ### 1. Get the repo
 
 ```bash
-git clone https://github.com/aws-samples/quick-aipdlc.git
-cd quick-aipdlc
+git clone https://github.com/aws-samples/sample-AI-PDLC-using-AmazonQuick.git
+cd sample-AI-PDLC-using-AmazonQuick
 ```
 
 Or download the ZIP from GitHub and extract it.
@@ -236,7 +236,7 @@ Open the three `DESIGNER-*.html` files in a browser to see the generated journey
 ## Folder Structure
 
 ```
-quick-aipdlc/
+sample-AI-PDLC-using-AmazonQuick/
 ├── README.md                     ← You are here
 ├── LICENSE                       ← MIT
 ├── CONTRIBUTING.md
